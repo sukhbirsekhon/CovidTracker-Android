@@ -8,21 +8,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
+import java.util.ArrayList;
 
 public class Home extends AppCompatActivity
 {
-    OkHttpClient client = new OkHttpClient();
     Button logout, callAPI;
     private TextView result;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,93 +33,70 @@ public class Home extends AppCompatActivity
             }
         });
 
-        result = findViewById(R.id.txtResult);
-
         callAPI = findViewById(R.id.btnAPI);
         callAPI.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                try {
-                    getCovidWebService();
+            public void onClick(View v)
+            {
+                int i = 0;
+                DataService ds = new DataService();
+                try
+                {
+                    ArrayList<JSONArray> countryNames = new ArrayList<>();
+                    countryNames.add(ds.getCountryName());
+
+                    ArrayList<JSONArray> cases = new ArrayList<>();
+                    cases.add(ds.getNumberOfCases());
+
+                    ArrayList<JSONArray> deaths = new ArrayList<>();
+                    deaths.add(ds.getNumberOfDeaths());
+
+                    ArrayList<JSONArray> totalRecovered = new ArrayList<>();
+                    totalRecovered.add(ds.getTotalRecovered());
+
+                    ArrayList<JSONArray> newDeaths = new ArrayList<>();
+                    newDeaths.add(ds.getNewDeaths());
+
+                    ArrayList<JSONArray> newCases = new ArrayList<>();
+                    newCases.add(ds.getNewCases());
+
+                    ArrayList<JSONArray> seriousCritical = new ArrayList<>();
+                    seriousCritical.add(ds.getSeriousCritical());
+
+                    ArrayList<JSONArray> activeCases = new ArrayList<>();
+                    activeCases.add(ds.getActiveCases());
+
+                    ArrayList<JSONArray> totalCasesPerMillionPopulation = new ArrayList<>();
+                    totalCasesPerMillionPopulation.add(ds.getTotalCasesPerMillionPopulation());
+
+                    synchronized (this)
+                    {
+                        while (i<10)
+                        {
+                            try {
+                                wait(150);
+                                i++;
+                            }catch (InterruptedException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    callAPI.setText("Successfully created objects");
+                    System.out.println(countryNames);
+                    System.out.println(cases);
+                    System.out.println(deaths);
+                    System.out.println(totalRecovered);
+                    System.out.println(newDeaths);
+                    System.out.println(newCases);
+                    System.out.println(seriousCritical);
+                    System.out.println(activeCases);
+                    System.out.println(totalCasesPerMillionPopulation);
+
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        client = new OkHttpClient();
-    }
-
-    private void getDataForCountryAffected() {
-        Request request = new Request.Builder()
-                .url("https://coronavirus-monitor.p.rapidapi.com/coronavirus/affected.php")
-                .get()
-                .addHeader("x-rapidapi-host", "coronavirus-monitor.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "12a8dba6admshd5f767ad7c36e5bp17cb05jsn3c9cee783e36")
-                .build();
-        client.newCall(request).enqueue(new Callback()
-        {
-            @Override
-            public void onFailure(Call call, IOException e)
-            {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.setText("Fail to get country affected data");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response)
-            {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            result.setText(response.body().string());
-                        } catch (IOException ioe){
-                            result.setText("Error on calling API");
-                        }
-                    }
-                });
-            }
-        });
-    }
-    private void getCovidWebService() throws IOException {
-        Request request = new Request.Builder()
-                .url("https://coronavirus-monitor.p.rapidapi.com/coronavirus/usastates.php")
-                .get()
-                .addHeader("x-rapidapi-host", "coronavirus-monitor.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", "12a8dba6admshd5f767ad7c36e5bp17cb05jsn3c9cee783e36")
-                .build();
-
-        client.newCall(request).enqueue(new Callback()
-        {
-            @Override
-            public void onFailure(Call call, IOException e)
-            {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.setText("Failure");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response)
-            {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            result.setText(response.body().string());
-                        } catch (IOException ioe){
-                            result.setText("Error on calling API");
-                        }
-                    }
-                });
             }
         });
     }
