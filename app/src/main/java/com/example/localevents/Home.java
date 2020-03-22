@@ -4,20 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity
 {
     Button logout, callAPI;
-    private TextView result;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<ListCasesDataProvider> listItems;
+    List<String> countryNames = new ArrayList<>();
+    List<String> cases = new ArrayList<>();
+    List<String> deaths = new ArrayList<>();
+    List<String> totalRecovered = new ArrayList<>();
+    List<String> newDeaths = new ArrayList<>();
+    List<String> newCases = new ArrayList<>();
+    List<String> seriousCritical = new ArrayList<>();
+    List<String> activeCases = new ArrayList<>();
+    List<String> totalCasesPerMillionPopulation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,32 +55,15 @@ public class Home extends AppCompatActivity
                 DataService ds = new DataService();
                 try
                 {
-                    ArrayList<JSONArray> countryNames = new ArrayList<>();
-                    countryNames.add(ds.getCountryName());
-
-                    ArrayList<JSONArray> cases = new ArrayList<>();
-                    cases.add(ds.getNumberOfCases());
-
-                    ArrayList<JSONArray> deaths = new ArrayList<>();
-                    deaths.add(ds.getNumberOfDeaths());
-
-                    ArrayList<JSONArray> totalRecovered = new ArrayList<>();
-                    totalRecovered.add(ds.getTotalRecovered());
-
-                    ArrayList<JSONArray> newDeaths = new ArrayList<>();
-                    newDeaths.add(ds.getNewDeaths());
-
-                    ArrayList<JSONArray> newCases = new ArrayList<>();
-                    newCases.add(ds.getNewCases());
-
-                    ArrayList<JSONArray> seriousCritical = new ArrayList<>();
-                    seriousCritical.add(ds.getSeriousCritical());
-
-                    ArrayList<JSONArray> activeCases = new ArrayList<>();
-                    activeCases.add(ds.getActiveCases());
-
-                    ArrayList<JSONArray> totalCasesPerMillionPopulation = new ArrayList<>();
-                    totalCasesPerMillionPopulation.add(ds.getTotalCasesPerMillionPopulation());
+                    countryNames = ds.getCountryName();
+                    cases = ds.getNumberOfCases();
+                    deaths = ds.getNumberOfDeaths();
+                    totalRecovered = ds.getTotalRecovered();
+                    newDeaths = ds.getNewDeaths();
+                    newCases = ds.getNewCases();
+                    seriousCritical = ds.getSeriousCritical();
+                    activeCases = ds.getActiveCases();
+                    totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
 
                     synchronized (this)
                     {
@@ -99,5 +95,24 @@ public class Home extends AppCompatActivity
                 }
             }
         });
+
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        listItems = new ArrayList<>();
+
+//        for(String s: countryNames)
+//        {
+//            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("heading " + (i+1),
+//                    "fjkasdjflasd");
+//
+//            listItems.add(listCasesDataProvider);
+//        }
+//
+//        adapter = new ListCasesAdapter(listItems, this);
+//
+//        recyclerView.setAdapter(adapter);
+
     }
 }

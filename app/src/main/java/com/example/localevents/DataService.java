@@ -5,6 +5,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,9 +24,9 @@ public class DataService
             .addHeader("x-rapidapi-key", "12a8dba6admshd5f767ad7c36e5bp17cb05jsn3c9cee783e36")
             .build();
 
-    public JSONArray getCountryName() throws IOException, JSONException
+    public List<String> getCountryName() throws IOException, JSONException
     {
-        final JSONArray countries = new JSONArray();
+        final List<String> countries = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -41,12 +43,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("country_name");
-                        countries.put(o);
+                        String object = Jarray.getJSONObject(i).getString("country_name");
+                        countries.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -57,9 +56,9 @@ public class DataService
         return countries;
     }
 
-    public JSONArray getNumberOfCases() throws IOException, JSONException
+    public List<String> getNumberOfCases() throws IOException, JSONException
     {
-        final JSONArray cases = new JSONArray();
+        final List<String> cases = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -76,12 +75,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("cases");
-                        cases.put(o);
+                        String object = Jarray.getJSONObject(i).getString("cases");
+                        cases.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -92,9 +88,9 @@ public class DataService
         return cases;
     }
 
-    public JSONArray getNumberOfDeaths() throws IOException, JSONException
+    public List<String> getNumberOfDeaths() throws IOException, JSONException
     {
-        final JSONArray deaths = new JSONArray();
+        final List<String> deaths = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -111,12 +107,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("deaths");
-                        deaths.put(o);
+                        String object = Jarray.getJSONObject(i).getString("deaths");
+                        deaths.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -127,9 +120,9 @@ public class DataService
         return deaths;
     }
 
-    public JSONArray getTotalRecovered() throws IOException, JSONException
+    public List<String> getTotalRecovered() throws IOException, JSONException
     {
-        final JSONArray totalRecovered = new JSONArray();
+        final List<String> totalRecovered = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -146,12 +139,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("total_recovered");
-                        totalRecovered.put(o);
+                        String object = Jarray.getJSONObject(i).getString("total_recovered");
+                        totalRecovered.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -162,9 +152,9 @@ public class DataService
         return totalRecovered;
     }
 
-    public JSONArray getNewDeaths() throws IOException, JSONException
+    public List<String> getNewDeaths() throws IOException, JSONException
     {
-        final JSONArray newDeaths = new JSONArray();
+        final List<String> newDeaths = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -181,12 +171,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("new_deaths");
-                        newDeaths.put(o);
+                        String object = Jarray.getJSONObject(i).getString("new_deaths");
+                        newDeaths.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -197,9 +184,9 @@ public class DataService
         return newDeaths;
     }
 
-    public JSONArray getNewCases() throws IOException, JSONException
+    public List<String> getNewCases() throws IOException, JSONException
     {
-        final JSONArray newCases = new JSONArray();
+        final List<String> newCases = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -216,12 +203,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("new_cases");
-                        newCases.put(o);
+                        String object = Jarray.getJSONObject(i).getString("new_cases");
+                        newCases.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -232,9 +216,9 @@ public class DataService
         return newCases;
     }
 
-    public JSONArray getSeriousCritical() throws IOException, JSONException
+    public List<String> getSeriousCritical() throws IOException, JSONException
     {
-        final JSONArray seriousCritical = new JSONArray();
+            final List<String> seriousCritical = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -251,12 +235,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("serious_critical");
-                        seriousCritical.put(o);
+                        String object = Jarray.getJSONObject(i).getString("serious_critical");
+                        seriousCritical.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -267,9 +248,9 @@ public class DataService
         return seriousCritical;
     }
 
-    public JSONArray getActiveCases() throws IOException, JSONException
+    public List<String> getActiveCases() throws IOException, JSONException
     {
-        final JSONArray activeCases = new JSONArray();
+        final List<String> activeCases = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -286,12 +267,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("active_cases");
-                        activeCases.put(o);
+                        String object = Jarray.getJSONObject(i).getString("active_cases");
+                        activeCases.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -302,9 +280,9 @@ public class DataService
         return activeCases;
     }
 
-    public JSONArray getTotalCasesPerMillionPopulation() throws IOException, JSONException
+    public List<String> getTotalCasesPerMillionPopulation() throws IOException, JSONException
     {
-        final JSONArray totalCasePerMillion = new JSONArray();
+        final List<String> totalCasePerMillion = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
@@ -321,12 +299,9 @@ public class DataService
                     JSONObject Jobject = new JSONObject(casesByCountry);
                     JSONArray Jarray = Jobject.getJSONArray("countries_stat");
 
-                    Object o = null;
-
                     for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject object = Jarray.getJSONObject(i);
-                        o = object.get("total_cases_per_1m_population");
-                        totalCasePerMillion.put(o);
+                        String object = Jarray.getJSONObject(i).getString("total_cases_per_1m_population");
+                        totalCasePerMillion.add(object);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -8,24 +8,33 @@
 
     <Button
         android:id="@+id/btnLogoutH"
-        android:layout_width="202dp"
-        android:layout_height="72dp"
+        android:layout_width="255dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="4dp"
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintVertical_bias="0.975" />
 
     <Button
         android:id="@+id/btnAPI"
-        android:layout_width="281dp"
-        android:layout_height="89dp"
-        android:layout_marginTop="216dp"
+        android:layout_width="258dp"
+        android:layout_height="42dp"
         android:text="Call API"
         app:layout_constraintBottom_toTopOf="@+id/btnLogoutH"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
