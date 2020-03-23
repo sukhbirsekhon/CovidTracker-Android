@@ -6,10 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -18,11 +15,9 @@ import java.util.List;
 
 public class Home extends AppCompatActivity
 {
-    Button logout, callAPI;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<ListCasesDataProvider> listItems;
-    List<String> countryNames = new ArrayList<>();
+    Button logout, callAPI, btnCasesByCountry;
+
+    ArrayList<String> countryNames = new ArrayList<>();
     List<String> cases = new ArrayList<>();
     List<String> deaths = new ArrayList<>();
     List<String> totalRecovered = new ArrayList<>();
@@ -38,7 +33,10 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        callAPI = findViewById(R.id.btnAPI);
+        btnCasesByCountry = findViewById(R.id.btnCasesByCountry);
         logout = findViewById(R.id.btnLogoutH);
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +44,6 @@ public class Home extends AppCompatActivity
             }
         });
 
-        callAPI = findViewById(R.id.btnAPI);
         callAPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -70,7 +67,7 @@ public class Home extends AppCompatActivity
                         while (i<10)
                         {
                             try {
-                                wait(150);
+                                wait(200);
                                 i++;
                             }catch (InterruptedException e){
                                 e.printStackTrace();
@@ -96,23 +93,14 @@ public class Home extends AppCompatActivity
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        listItems = new ArrayList<>();
-
-//        for(String s: countryNames)
-//        {
-//            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("heading " + (i+1),
-//                    "fjkasdjflasd");
-//
-//            listItems.add(listCasesDataProvider);
-//        }
-//
-//        adapter = new ListCasesAdapter(listItems, this);
-//
-//        recyclerView.setAdapter(adapter);
-
+        btnCasesByCountry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
+            }
+        });
     }
+
+
+
 }

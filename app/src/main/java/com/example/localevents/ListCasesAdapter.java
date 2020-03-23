@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,13 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
         ListCasesDataProvider listItem = listItems.get(position);
         holder.textViewHead.setText(listItem.getCountryName());
         holder.textViewDescription.setText(listItem.getCases());
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Clickafhj", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -46,6 +55,7 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
 
         public TextView textViewHead;
         public TextView textViewDescription;
+        public LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -53,6 +63,7 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
 
             textViewHead = (TextView) itemView.findViewById(R.id.textViewHead);
             textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
         }
     }
 }

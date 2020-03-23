@@ -10,27 +10,36 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:padding="16dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            >
 
             <TextView
                 android:id="@+id/textViewHead"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:text="Heading"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_weight="20"
+                />
 
             <TextView
                 android:id="@+id/textViewDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:text="Description"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_weight="80"
+                android:layout_gravity="center"
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

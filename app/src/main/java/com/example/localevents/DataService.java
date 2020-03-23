@@ -24,9 +24,9 @@ public class DataService
             .addHeader("x-rapidapi-key", "12a8dba6admshd5f767ad7c36e5bp17cb05jsn3c9cee783e36")
             .build();
 
-    public List<String> getCountryName() throws IOException, JSONException
+    public ArrayList<String> getCountryName() throws IOException, JSONException
     {
-        final List<String> countries = new ArrayList<>();
+        final ArrayList<String> countries = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {
