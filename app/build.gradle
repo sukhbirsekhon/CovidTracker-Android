@@ -38,4 +38,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
     implementation 'com.daimajia.swipelayout:library:1.2.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.1.0'
 }

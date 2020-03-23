@@ -1,10 +1,15 @@
 package com.example.localevents;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
@@ -28,6 +33,22 @@ public class CasesByCountry extends AppCompatActivity
     List<String> activeCases = new ArrayList<>();
     List<String> totalCasesPerMillionPopulation = new ArrayList<>();
 
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+        {
+            switch (menuItem.getItemId()){
+                case R.id.nav_home:
+                    Intent a = new Intent(CasesByCountry.this, Home.class);
+                    startActivity(a);
+                    break;
+                case R.id.nav_cases:
+                    break;
+            }
+            return false;
+        }
+    };
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cases_by_country);
@@ -37,6 +58,9 @@ public class CasesByCountry extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         DataService ds = new DataService();
 
@@ -72,14 +96,19 @@ public class CasesByCountry extends AppCompatActivity
                 }
             }
         }
-        for(int j = 0; j < countryNames.size(); j ++)
+        try
         {
-            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
-                    cases.get(j), "Active Cases: " + activeCases.get(j),
-                    "Recovered Cases: " + totalRecovered.get(j),
-                    "Fatal Cases: " + deaths.get(j));
+            for(int j = 0; j < countryNames.size(); j ++)
+            {
+                ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
+                        cases.get(j), "Active Cases: " + activeCases.get(j),
+                        "Recovered Cases: " + totalRecovered.get(j),
+                        "Fatal Cases: " + deaths.get(j));
 
-            listItems.add(listCasesDataProvider);
+                listItems.add(listCasesDataProvider);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
         adapter = new ListCasesAdapter(listItems, this );
