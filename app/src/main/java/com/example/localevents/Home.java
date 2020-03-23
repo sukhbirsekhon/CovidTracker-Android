@@ -2,10 +2,12 @@ package com.example.localevents;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,19 +23,13 @@ public class Home extends AppCompatActivity
     TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases;
     ImageButton btnRefresh;
 
-    ArrayList<String> countryNames = new ArrayList<>();
-    List<String> cases = new ArrayList<>();
-    List<String> deaths = new ArrayList<>();
-    List<String> totalRecovered = new ArrayList<>();
-    List<String> newDeaths = new ArrayList<>();
-    List<String> newCases = new ArrayList<>();
-    List<String> seriousCritical = new ArrayList<>();
-    List<String> activeCases = new ArrayList<>();
-    List<String> totalCasesPerMillionPopulation = new ArrayList<>();
-
     ArrayList<String> globalCases = new ArrayList<>();
     ArrayList<String> globalRecovered = new ArrayList<>();
     ArrayList<String> globalFatal = new ArrayList<>();
+
+    ArrayList<String> mGlobalCases = new ArrayList<>();
+    ArrayList<String> mGlobalRecovered = new ArrayList<>();
+    ArrayList<String> mGlobalFatal = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,7 +64,7 @@ public class Home extends AppCompatActivity
             while (i<10)
             {
                 try {
-                    wait(250);
+                    wait(400);
                     i++;
                 }catch (InterruptedException e){
                     e.printStackTrace();
@@ -76,9 +72,15 @@ public class Home extends AppCompatActivity
             }
         }
         System.out.println("*******0 " + globalCases);
-        txtConfirmedCases.setText("Confirmed \n" + globalCases.get(0));
-        txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
-        txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
+        try
+        {
+            txtConfirmedCases.setText("Confirmed \n" + globalCases.get(0));
+            txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
+            txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
+        } catch (IndexOutOfBoundsException e)
+        {
+            e.printStackTrace();
+        }
 
         btnCasesByCountry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,12 +100,12 @@ public class Home extends AppCompatActivity
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalDataService gs = new GlobalDataService();
+                GlobalDataService gsd = new GlobalDataService();
                 try
                 {
-                    globalCases = gs.getGlobalCases();
-                    globalRecovered = gs.getGlobalRecovered();
-                    globalFatal = gs.getGlobalFatal();
+                    mGlobalCases = gsd.getGlobalCases();
+                    mGlobalRecovered = gsd.getGlobalRecovered();
+                    mGlobalFatal = gsd.getGlobalFatal();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,10 +126,19 @@ public class Home extends AppCompatActivity
                         }
                     }
                 }
-                System.out.println("*****************************************8refre " + globalCases);
-                txtConfirmedCases.setText("Confirmedr \n" + globalCases.get(0));
-                txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
-                txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
+                System.out.println("*****************************************8refre " + mGlobalCases);
+                try
+                {
+                    txtConfirmedCases.setText("Confirmed \n" + mGlobalCases.get(0));
+                    txtRecoveredCases.setText("Recovered \n" + mGlobalRecovered.get(0));
+                    txtDeathCases.setText("Fatal \n" + mGlobalFatal.get(0));
+                } catch (IndexOutOfBoundsException e)
+                {
+                    e.printStackTrace();
+                }
+                Toast toast = Toast.makeText(getApplicationContext(),"Refreshed",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 0, 200);
+                toast.show();
             }
         });
     }
