@@ -75,7 +75,9 @@ public class CasesByCountry extends AppCompatActivity
         for(int j = 0; j < countryNames.size(); j ++)
         {
             ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
-                    cases.get(j));
+                    cases.get(j), "Active Cases: " + activeCases.get(j),
+                    "Recovered Cases: " + totalRecovered.get(j),
+                    "Fatal Cases: " + deaths.get(j));
 
             listItems.add(listCasesDataProvider);
         }

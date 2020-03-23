@@ -62,29 +62,6 @@ public class Home extends AppCompatActivity
                     activeCases = ds.getActiveCases();
                     totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
 
-                    synchronized (this)
-                    {
-                        while (i<10)
-                        {
-                            try {
-                                wait(200);
-                                i++;
-                            }catch (InterruptedException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                    callAPI.setText("Successfully created objects");
-                    System.out.println(countryNames);
-                    System.out.println(cases);
-                    System.out.println(deaths);
-                    System.out.println(totalRecovered);
-                    System.out.println(newDeaths);
-                    System.out.println(newCases);
-                    System.out.println(seriousCritical);
-                    System.out.println(activeCases);
-                    System.out.println(totalCasesPerMillionPopulation);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -100,7 +77,4 @@ public class Home extends AppCompatActivity
             }
         });
     }
-
-
-
 }

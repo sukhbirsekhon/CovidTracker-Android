@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -37,13 +38,12 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
         ListCasesDataProvider listItem = listItems.get(position);
         holder.textViewHead.setText(listItem.getCountryName());
         holder.textViewDescription.setText(listItem.getCases());
+        holder.activeCases.setText(listItem.getActiveCases());
+        holder.recoveredCases.setText(listItem.getRecoveredCases());
+        holder.deaths.setText(listItem.getDeaths());
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Clickafhj", Toast.LENGTH_LONG).show();
-            }
-        });
+        boolean isExpanded =  listItems.get(position).isExpanded();
+        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -54,8 +54,9 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView textViewHead;
-        public TextView textViewDescription;
+        public TextView textViewDescription, activeCases, recoveredCases, deaths;
         public LinearLayout linearLayout;
+        ConstraintLayout expandableLayout;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -63,7 +64,21 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
 
             textViewHead = (TextView) itemView.findViewById(R.id.textViewHead);
             textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
+            activeCases = (TextView) itemView.findViewById(R.id.activeCases);
+            recoveredCases = (TextView) itemView.findViewById(R.id.recoveredCases);
+            deaths = (TextView) itemView.findViewById(R.id.deaths);
+
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+            expandableLayout = itemView.findViewById(R.id.expandableLayout);
+
+            textViewHead.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ListCasesDataProvider ls = listItems.get(getAdapterPosition());
+                    ls.setExpanded(!ls.isExpanded());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
         }
     }
 }
