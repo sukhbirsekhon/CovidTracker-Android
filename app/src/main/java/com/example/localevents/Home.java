@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,8 @@ import java.util.List;
 public class Home extends AppCompatActivity
 {
     Button logout, callAPI, btnCasesByCountry;
+    TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases;
+    ImageButton btnRefresh;
 
     ArrayList<String> countryNames = new ArrayList<>();
     List<String> cases = new ArrayList<>();
@@ -27,6 +31,10 @@ public class Home extends AppCompatActivity
     List<String> activeCases = new ArrayList<>();
     List<String> totalCasesPerMillionPopulation = new ArrayList<>();
 
+    ArrayList<String> globalCases = new ArrayList<>();
+    ArrayList<String> globalRecovered = new ArrayList<>();
+    ArrayList<String> globalFatal = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +44,49 @@ public class Home extends AppCompatActivity
         callAPI = findViewById(R.id.btnAPI);
         btnCasesByCountry = findViewById(R.id.btnCasesByCountry);
         logout = findViewById(R.id.btnLogoutH);
+        txtConfirmedCases = findViewById(R.id.txtConfirmedCases);
+        txtRecoveredCases = findViewById(R.id.txtRecoveredCases);
+        txtDeathCases = findViewById(R.id.txtDeathCases);
+        btnRefresh = findViewById(R.id.btnRefresh);
+
+        GlobalDataService gs = new GlobalDataService();
+        try
+        {
+            globalCases = gs.getGlobalCases();
+            globalRecovered = gs.getGlobalRecovered();
+            globalFatal = gs.getGlobalFatal();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        int i =0;
+        synchronized (this)
+        {
+            while (i<10)
+            {
+                try {
+                    wait(250);
+                    i++;
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("*******0 " + globalCases);
+        txtConfirmedCases.setText("Confirmed \n" + globalCases.get(0));
+        txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
+        txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
+
+        btnCasesByCountry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("*******03 " + globalCases);
+                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,36 +95,39 @@ public class Home extends AppCompatActivity
             }
         });
 
-        callAPI.setOnClickListener(new View.OnClickListener() {
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                int i = 0;
-                DataService ds = new DataService();
+            public void onClick(View v) {
+                GlobalDataService gs = new GlobalDataService();
                 try
                 {
-                    countryNames = ds.getCountryName();
-                    cases = ds.getNumberOfCases();
-                    deaths = ds.getNumberOfDeaths();
-                    totalRecovered = ds.getTotalRecovered();
-                    newDeaths = ds.getNewDeaths();
-                    newCases = ds.getNewCases();
-                    seriousCritical = ds.getSeriousCritical();
-                    activeCases = ds.getActiveCases();
-                    totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
+                    globalCases = gs.getGlobalCases();
+                    globalRecovered = gs.getGlobalRecovered();
+                    globalFatal = gs.getGlobalFatal();
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
 
-        btnCasesByCountry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
+                int i =0;
+                synchronized (this)
+                {
+                    while (i<10)
+                    {
+                        try {
+                            wait(200);
+                            i++;
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                System.out.println("*****************************************8refre " + globalCases);
+                txtConfirmedCases.setText("Confirmedr \n" + globalCases.get(0));
+                txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
+                txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
             }
         });
     }

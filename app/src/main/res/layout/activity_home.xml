@@ -10,16 +10,16 @@
         android:id="@+id/txtDeathCases"
         android:layout_width="122dp"
         android:layout_height="69dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/box"
+        android:gravity="center"
         android:text="Fatal"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.099"
+        app:layout_constraintVertical_bias="0.161"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -29,14 +29,14 @@
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:background="@drawable/box"
+        android:gravity="center"
         android:text="Recovered "
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtDeathCases"
         app:layout_constraintStart_toEndOf="@+id/txtConfirmedCases"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.099"
+        app:layout_constraintVertical_bias="0.161"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -80,15 +80,26 @@
         android:layout_width="122dp"
         android:layout_height="69dp"
         android:background="@drawable/box"
+        android:gravity="center"
         android:text="Confirmed "
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txtRecoveredCases"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.099"
+        app:layout_constraintVertical_bias="0.161"
         tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btnRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/txtDeathCases"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/refresh" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
