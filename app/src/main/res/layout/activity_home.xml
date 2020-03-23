@@ -6,6 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
+    <TextView
+        android:id="@+id/txtDeathCases"
+        android:layout_width="122dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/box"
+        android:text="Fatal"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.099"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtRecoveredCases"
+        android:layout_width="122dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:background="@drawable/box"
+        android:text="Recovered "
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtDeathCases"
+        app:layout_constraintStart_toEndOf="@+id/txtConfirmedCases"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.099"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/btnLogoutH"
         android:layout_width="255dp"
@@ -24,22 +57,38 @@
         android:layout_width="258dp"
         android:layout_height="42dp"
         android:text="Call API"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogoutH"
+        app:layout_constraintBottom_toTopOf="@+id/btnCasesByCountry"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="0.982" />
 
     <Button
         android:id="@+id/btnCasesByCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLogoutH"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogoutH"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfirmedCases"
+        android:layout_width="122dp"
+        android:layout_height="69dp"
+        android:background="@drawable/box"
+        android:text="Confirmed "
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtRecoveredCases"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.099"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
