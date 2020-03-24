@@ -27,10 +27,10 @@ public class CasesByCountry extends AppCompatActivity
     List<String> cases = new ArrayList<>();
     List<String> deaths = new ArrayList<>();
     List<String> totalRecovered = new ArrayList<>();
-    List<String> newDeaths = new ArrayList<>();
-    List<String> newCases = new ArrayList<>();
-    List<String> seriousCritical = new ArrayList<>();
     List<String> activeCases = new ArrayList<>();
+    List<String> newCases = new ArrayList<>();
+    List<String> newDeaths = new ArrayList<>();
+    List<String> seriousCritical = new ArrayList<>();
     List<String> totalCasesPerMillionPopulation = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -101,9 +101,11 @@ public class CasesByCountry extends AppCompatActivity
             for(int j = 0; j < countryNames.size(); j ++)
             {
                 ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
-                        cases.get(j), "Active Cases: " + activeCases.get(j),
-                        "Recovered Cases: " + totalRecovered.get(j),
-                        "Fatal Cases: " + deaths.get(j));
+                        cases.get(j), activeCases.get(j),
+                        totalRecovered.get(j),
+                        deaths.get(j), newCases.get(j),
+                        newDeaths.get(j),
+                        seriousCritical.get(j));
 
                 listItems.add(listCasesDataProvider);
             }

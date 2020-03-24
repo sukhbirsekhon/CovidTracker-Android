@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -41,6 +40,9 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
         holder.activeCases.setText(listItem.getActiveCases());
         holder.recoveredCases.setText(listItem.getRecoveredCases());
         holder.deaths.setText(listItem.getDeaths());
+        holder.newCases.setText(listItem.getNewCases());
+        holder.newDeaths.setText(listItem.getNewDeaths());
+        holder.seriousCritical.setText(listItem.getSeriousCritical());
 
         boolean isExpanded =  listItems.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -53,7 +55,7 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewHead;
+        public TextView textViewHead, newCases, newDeaths, seriousCritical;
         public TextView textViewDescription, activeCases, recoveredCases, deaths;
         public LinearLayout linearLayout;
         ConstraintLayout expandableLayout;
@@ -67,6 +69,9 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
             activeCases = (TextView) itemView.findViewById(R.id.activeCases);
             recoveredCases = (TextView) itemView.findViewById(R.id.recoveredCases);
             deaths = (TextView) itemView.findViewById(R.id.deaths);
+            newCases = (TextView) itemView.findViewById(R.id.newCases);
+            newDeaths = (TextView) itemView.findViewById(R.id.newDeaths);
+            seriousCritical = (TextView) itemView.findViewById(R.id.seriousCritical);
 
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
