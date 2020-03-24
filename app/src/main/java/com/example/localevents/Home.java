@@ -1,12 +1,10 @@
 package com.example.localevents;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,14 +29,12 @@ public class Home extends AppCompatActivity
     ArrayList<String> globalFatal = new ArrayList<>();
     ArrayList<String> globalNewCases = new ArrayList<>();
     ArrayList<String> globalNewDeaths = new ArrayList<>();
-    ArrayList<String> updatedTime = new ArrayList<>();
 
     ArrayList<String> mGlobalCases = new ArrayList<>();
     ArrayList<String> mGlobalRecovered = new ArrayList<>();
     ArrayList<String> mGlobalFatal = new ArrayList<>();
     ArrayList<String> mGlobalNewCases = new ArrayList<>();
     ArrayList<String> mGlobalNewDeaths = new ArrayList<>();
-    ArrayList<String> mUpdatedTime = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -67,7 +63,6 @@ public class Home extends AppCompatActivity
         txtDeathCases = findViewById(R.id.txtDeathCases);
         txtGlobalNewCases = findViewById(R.id.txtNewCases);
         txtGlobalNewDeaths = findViewById(R.id.txtNewDeaths);
-        txtUpdatedTime = findViewById(R.id.txtUpdatedTime);
         btnRefresh = findViewById(R.id.btnRefresh);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -81,8 +76,6 @@ public class Home extends AppCompatActivity
             globalFatal = gs.getGlobalFatal();
             globalNewCases = gs.getGlobalNewCases();
             globalNewDeaths = gs.getGlobalNewDeaths();
-            updatedTime = gs.getUpdatedTime();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -104,12 +97,11 @@ public class Home extends AppCompatActivity
         }
         try
         {
-            txtConfirmedCases.setText("Confirmed \n" + globalCases.get(0));
-            txtRecoveredCases.setText("Recovered \n" + globalRecovered.get(0));
-            txtDeathCases.setText("Fatal \n" + globalFatal.get(0));
-            txtGlobalNewCases.setText("New cases \n" + globalNewCases.get(0));
-            txtGlobalNewDeaths.setText("New deaths \n" + globalNewDeaths.get(0));
-            txtUpdatedTime.setText("Last updated \n" + updatedTime.get(0));
+            txtConfirmedCases.setText(globalCases.get(0));
+            txtRecoveredCases.setText(globalRecovered.get(0));
+            txtDeathCases.setText(globalFatal.get(0));
+            txtGlobalNewCases.setText(globalNewCases.get(0));
+            txtGlobalNewDeaths.setText(globalNewDeaths.get(0));
         } catch (IndexOutOfBoundsException e)
         {
             e.printStackTrace();
@@ -126,8 +118,6 @@ public class Home extends AppCompatActivity
                     mGlobalFatal = gsd.getGlobalFatal();
                     mGlobalNewCases = gsd.getGlobalNewCases();
                     mGlobalNewDeaths = gsd.getGlobalNewDeaths();
-                    mUpdatedTime = gsd.getUpdatedTime();
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -149,12 +139,11 @@ public class Home extends AppCompatActivity
                 }
                 try
                 {
-                    txtConfirmedCases.setText("Confirmed \n" + mGlobalCases.get(0));
-                    txtRecoveredCases.setText("Recovered \n" + mGlobalRecovered.get(0));
-                    txtDeathCases.setText("Fatal \n" + mGlobalFatal.get(0));
-                    txtGlobalNewCases.setText("New cases \n" + mGlobalNewCases.get(0));
-                    txtGlobalNewDeaths.setText("New deaths \n" + mGlobalNewDeaths.get(0));
-                    txtUpdatedTime.setText("Last updated \n" + mUpdatedTime.get(0));
+                    txtConfirmedCases.setText(mGlobalCases.get(0));
+                    txtRecoveredCases.setText(mGlobalRecovered.get(0));
+                    txtDeathCases.setText(mGlobalFatal.get(0));
+                    txtGlobalNewCases.setText(mGlobalNewCases.get(0));
+                    txtGlobalNewDeaths.setText(mGlobalNewDeaths.get(0));
                 } catch (IndexOutOfBoundsException e)
                 {
                     e.printStackTrace();
