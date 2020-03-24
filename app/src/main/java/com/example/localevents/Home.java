@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,11 +19,9 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Home extends AppCompatActivity
 {
-    Button logout;
     TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases;
     ImageButton btnRefresh;
 
@@ -58,7 +55,6 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        logout = findViewById(R.id.btnLogoutH);
         txtConfirmedCases = findViewById(R.id.txtConfirmedCases);
         txtRecoveredCases = findViewById(R.id.txtRecoveredCases);
         txtDeathCases = findViewById(R.id.txtDeathCases);
@@ -103,13 +99,6 @@ public class Home extends AppCompatActivity
             e.printStackTrace();
         }
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
-            }
-        });
-
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,8 +137,8 @@ public class Home extends AppCompatActivity
                 {
                     e.printStackTrace();
                 }
-                Toast toast = Toast.makeText(getApplicationContext(),"Refreshed",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.TOP, 0, 200);
+                Toast toast = Toast.makeText(getApplicationContext(),"Updated",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM, 0, 200);
                 toast.show();
             }
         });
