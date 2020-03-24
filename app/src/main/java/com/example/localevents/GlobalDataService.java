@@ -112,4 +112,94 @@ public class GlobalDataService
 
         return globalFatalCases;
     }
+
+    public ArrayList<String> getGlobalNewCases() throws IOException, JSONException
+    {
+        final ArrayList<String> globalNewCases = new ArrayList<>();
+
+        client.newCall(request).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) {
+
+                try {
+                    String worldStat = response.body().string();
+
+                    JSONObject Jobject = new JSONObject(worldStat);
+                    Object o = Jobject.get("new_cases");
+                    String s = (String) o;
+                    globalNewCases.add(s);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return globalNewCases;
+    }
+
+    public ArrayList<String> getGlobalNewDeaths() throws IOException, JSONException
+    {
+        final ArrayList<String> globalNewDeaths = new ArrayList<>();
+
+        client.newCall(request).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) {
+
+                try {
+                    String worldStat = response.body().string();
+
+                    JSONObject Jobject = new JSONObject(worldStat);
+                    Object o = Jobject.get("new_deaths");
+                    String s = (String) o;
+                    globalNewDeaths.add(s);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return globalNewDeaths;
+    }
+
+    public ArrayList<String> getUpdatedTime() throws IOException, JSONException
+    {
+        final ArrayList<String> updatedTime = new ArrayList<>();
+
+        client.newCall(request).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) {
+
+                try {
+                    String worldStat = response.body().string();
+
+                    JSONObject Jobject = new JSONObject(worldStat);
+                    Object o = Jobject.get("statistic_taken_at");
+                    String s = (String) o;
+                    updatedTime.add(s);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return updatedTime;
+    }
 }

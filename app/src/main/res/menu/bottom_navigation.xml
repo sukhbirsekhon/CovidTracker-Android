@@ -4,14 +4,15 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
-        app:itemIconTint="@menu/tab_color"
-        app:itemTextColor="@menu/tab_color"
-        android:title="Home"/>
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorPrimaryDark"
+        android:title="Home"
+        android:checked="false"/>
 
     <item
         android:id="@+id/nav_cases"
-        android:icon="@drawable/ic_view_headline_black_24dp"
-        app:itemIconTint="@menu/tab_color"
-        app:itemTextColor="@menu/tab_color"
-        android:title="Cases by Country" />
+        android:icon="@drawable/ic_view_list_black_24dp"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorPrimaryDark"
+        android:title="Statistics" />
 </menu>

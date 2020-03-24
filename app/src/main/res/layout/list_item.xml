@@ -6,11 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -65,8 +60,8 @@
                         android:id="@+id/seriousCritical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
 
                         android:text="Serious critical"
                         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="80"
                         android:text="Serious critical"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/newDeaths2" />
 
@@ -85,8 +81,8 @@
                         android:id="@+id/newDeaths"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
                         android:text="New deaths"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/newCases" />
@@ -96,6 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New deaths"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/newCases2" />
 
@@ -103,8 +100,8 @@
                         android:id="@+id/newCases"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
                         android:text="New cases"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +114,7 @@
                         android:layout_height="wrap_content"
                         android:text="New cases"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/deaths2"
                         tools:ignore="MissingConstraints" />
@@ -125,8 +123,8 @@
                         android:id="@+id/activeCases"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
                         android:layout_marginTop="28dp"
                         android:text="Cases"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -139,8 +137,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="28dp"
-                        android:text="Cases"
+                        android:text="Active"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="MissingConstraints" />
@@ -149,8 +148,8 @@
                         android:id="@+id/recoveredCases"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
                         android:text="Recovered "
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/activeCases" />
@@ -160,6 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Recovered "
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/activeCases2" />
 
@@ -167,8 +167,8 @@
                         android:id="@+id/deaths"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="215dp"
-                        android:layout_marginLeft="215dp"
+                        android:layout_marginStart="250dp"
+                        android:layout_marginLeft="250dp"
                         android:text="Deaths"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/recoveredCases" />
@@ -178,6 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Deaths"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/recoveredCases2" />
 
@@ -187,5 +188,4 @@
 
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 </LinearLayout>
