@@ -1,8 +1,15 @@
 package com.example.localevents;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +29,8 @@ public class CasesByCountry extends AppCompatActivity
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListCasesDataProvider> listItems;
+    private ProgressBar progressBar;
+    ImageButton btnRefresh;
 
     ArrayList<String> countryNames = new ArrayList<>();
     List<String> cases = new ArrayList<>();
@@ -32,6 +41,7 @@ public class CasesByCountry extends AppCompatActivity
     List<String> newDeaths = new ArrayList<>();
     List<String> seriousCritical = new ArrayList<>();
     List<String> totalCasesPerMillionPopulation = new ArrayList<>();
+    Context con = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -49,12 +59,15 @@ public class CasesByCountry extends AppCompatActivity
         }
     };
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cases_by_country);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        progressBar = findViewById(R.id.progressBar6);
+        btnRefresh = findViewById(R.id.btnRefresh2);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
@@ -62,58 +75,151 @@ public class CasesByCountry extends AppCompatActivity
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        DataService ds = new DataService();
+        con = this;
 
-        try
-        {
-            countryNames = ds.getCountryName();
-            cases = ds.getNumberOfCases();
-            deaths = ds.getNumberOfDeaths();
-            totalRecovered = ds.getTotalRecovered();
-            newDeaths = ds.getNewDeaths();
-            newCases = ds.getNewCases();
-            seriousCritical = ds.getSeriousCritical();
-            activeCases = ds.getActiveCases();
-            totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
+        progressBar.setVisibility(View.VISIBLE);
+        new CasesByCountryAsync().execute();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                new CasesByCountryAsync2().execute();
+            }
+        });
+    }
 
-        int i =0;
+    class CasesByCountryAsync extends AsyncTask {
 
-        synchronized (this)
-        {
-            while (i<10)
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            DataService ds = new DataService();
+            try
             {
-                try {
-                    wait(200);
-                    i++;
-                }catch (InterruptedException e){
-                    e.printStackTrace();
+                countryNames = ds.getCountryName();
+                cases = ds.getNumberOfCases();
+                deaths = ds.getNumberOfDeaths();
+                totalRecovered = ds.getTotalRecovered();
+                activeCases = ds.getActiveCases();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            int i =0;
+
+            synchronized (this)
+            {
+                while (i<10)
+                {
+                    try {
+                        wait(200);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
                 }
             }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        for(int j = 0; j < countryNames.size(); j ++)
+                        {
+                            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
+                                    cases.get(j), activeCases.get(j),
+                                    totalRecovered.get(j),
+                                    deaths.get(j));
+
+                            listItems.add(listCasesDataProvider);
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                    adapter = new ListCasesAdapter(listItems, con);
+                    recyclerView.setAdapter(adapter);
+                }
+            });
+
+            return null;
         }
-        try
-        {
-            for(int j = 0; j < countryNames.size(); j ++)
+
+        @Override
+        protected void onPostExecute(Object o) {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    class CasesByCountryAsync2 extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            DataService ds = new DataService();
+            try
             {
-                ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
-                        cases.get(j), activeCases.get(j),
-                        totalRecovered.get(j),
-                        deaths.get(j), newCases.get(j),
-                        newDeaths.get(j),
-                        seriousCritical.get(j));
+                countryNames = ds.getCountryName();
+                cases = ds.getNumberOfCases();
+                deaths = ds.getNumberOfDeaths();
+                totalRecovered = ds.getTotalRecovered();
+                activeCases = ds.getActiveCases();
 
-                listItems.add(listCasesDataProvider);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch(Exception e){
-            e.printStackTrace();
+
+            int i =0;
+
+            synchronized (this)
+            {
+                while (i<10)
+                {
+                    try {
+                        wait(200);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try
+                    {
+                        for(int j = 0; j < countryNames.size(); j ++)
+                        {
+                            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider(countryNames.get(j),
+                                    cases.get(j), activeCases.get(j),
+                                    totalRecovered.get(j),
+                                    deaths.get(j));
+
+                            listItems.add(listCasesDataProvider);
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                    adapter = new ListCasesAdapter(listItems, con);
+                    recyclerView.setAdapter(adapter);
+
+                    Toast toast = Toast.makeText(getApplicationContext(),"Updated the records.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
+                }
+            });
+
+            return null;
         }
 
-        adapter = new ListCasesAdapter(listItems, this );
-        recyclerView.setAdapter(adapter);
+        @Override
+        protected void onPostExecute(Object o) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

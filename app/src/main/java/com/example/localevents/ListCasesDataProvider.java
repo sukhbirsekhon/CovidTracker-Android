@@ -15,16 +15,13 @@ public class ListCasesDataProvider
     private boolean expanded;
 
     public ListCasesDataProvider(String countryName, String cases, String activeCases,
-            String recoveredCase, String deaths, String newCases, String newDeaths, String seriousCritical)
+            String recoveredCase, String deaths)
     {
         this.countryName = countryName;
         this.cases = cases;
         this.activeCases = activeCases;
         this.recoveredCases = recoveredCase;
         this.deaths = deaths;
-        this.newCases = newCases;
-        this.newDeaths = newDeaths;
-        this.seriousCritical = seriousCritical;
 
         this.expanded = false;
     }
@@ -77,27 +74,4 @@ public class ListCasesDataProvider
         this.cases = cases;
     }
 
-    public String getNewCases() {
-        return newCases;
-    }
-
-    public void setNewCases(String newCases) {
-        this.newCases = newCases;
-    }
-
-    public String getNewDeaths() {
-        return newDeaths;
-    }
-
-    public void setNewDeaths(String newDeaths) {
-        this.newDeaths = newDeaths;
-    }
-
-    public String getSeriousCritical() {
-        return seriousCritical;
-    }
-
-    public void setSeriousCritical(String seriousCritical) {
-        this.seriousCritical = seriousCritical;
-    }
 }

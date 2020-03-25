@@ -1,11 +1,13 @@
 package com.example.localevents;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,20 +23,15 @@ import java.util.ArrayList;
 
 public class Home extends AppCompatActivity
 {
-    TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths, txtUpdatedTime;
+    TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths;
     ImageButton btnRefresh;
+    private ProgressBar progressBar;
 
     ArrayList<String> globalCases = new ArrayList<>();
     ArrayList<String> globalRecovered = new ArrayList<>();
     ArrayList<String> globalFatal = new ArrayList<>();
     ArrayList<String> globalNewCases = new ArrayList<>();
     ArrayList<String> globalNewDeaths = new ArrayList<>();
-
-    ArrayList<String> mGlobalCases = new ArrayList<>();
-    ArrayList<String> mGlobalRecovered = new ArrayList<>();
-    ArrayList<String> mGlobalFatal = new ArrayList<>();
-    ArrayList<String> mGlobalNewCases = new ArrayList<>();
-    ArrayList<String> mGlobalNewDeaths = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -64,94 +61,162 @@ public class Home extends AppCompatActivity
         txtGlobalNewCases = findViewById(R.id.txtNewCases);
         txtGlobalNewDeaths = findViewById(R.id.txtNewDeaths);
         btnRefresh = findViewById(R.id.btnRefresh);
+        progressBar = findViewById(R.id.progressBar);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        GlobalDataService gs = new GlobalDataService();
-        try
-        {
-            globalCases = gs.getGlobalCases();
-            globalRecovered = gs.getGlobalRecovered();
-            globalFatal = gs.getGlobalFatal();
-            globalNewCases = gs.getGlobalNewCases();
-            globalNewDeaths = gs.getGlobalNewDeaths();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        int i =0;
-        synchronized (this)
-        {
-            while (i<10)
-            {
-                try {
-                    wait(400);
-                    i++;
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        try
-        {
-            txtConfirmedCases.setText(globalCases.get(0));
-            txtRecoveredCases.setText(globalRecovered.get(0));
-            txtDeathCases.setText(globalFatal.get(0));
-            txtGlobalNewCases.setText(globalNewCases.get(0));
-            txtGlobalNewDeaths.setText(globalNewDeaths.get(0));
-        } catch (IndexOutOfBoundsException e)
-        {
-            e.printStackTrace();
-        }
+        progressBar.setVisibility(View.VISIBLE);
+        new HomeAsync2().execute();
 
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GlobalDataService gsd = new GlobalDataService();
-                try
-                {
-                    mGlobalCases = gsd.getGlobalCases();
-                    mGlobalRecovered = gsd.getGlobalRecovered();
-                    mGlobalFatal = gsd.getGlobalFatal();
-                    mGlobalNewCases = gsd.getGlobalNewCases();
-                    mGlobalNewDeaths = gsd.getGlobalNewDeaths();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                int i =0;
-                synchronized (this)
-                {
-                    while (i<10)
-                    {
-                        try {
-                            wait(200);
-                            i++;
-                        }catch (InterruptedException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                try
-                {
-                    txtConfirmedCases.setText(mGlobalCases.get(0));
-                    txtRecoveredCases.setText(mGlobalRecovered.get(0));
-                    txtDeathCases.setText(mGlobalFatal.get(0));
-                    txtGlobalNewCases.setText(mGlobalNewCases.get(0));
-                    txtGlobalNewDeaths.setText(mGlobalNewDeaths.get(0));
-                } catch (IndexOutOfBoundsException e)
-                {
-                    e.printStackTrace();
-                }
-                Toast toast = Toast.makeText(getApplicationContext(),"Updated",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM, 0, 200);
-                toast.show();
+                progressBar.setVisibility(View.VISIBLE);
+                new HomeAsync().execute();
             }
         });
+
+        txtConfirmedCases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
+            }
+        });
+    }
+
+    class HomeAsync extends AsyncTask
+    {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Object[] objects)
+        {
+            GlobalDataService gs = new GlobalDataService();
+            try
+            {
+                globalCases = gs.getGlobalCases();
+                globalRecovered = gs.getGlobalRecovered();
+                globalFatal = gs.getGlobalFatal();
+                globalNewCases = gs.getGlobalNewCases();
+                globalNewDeaths = gs.getGlobalNewDeaths();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            int i =0;
+            synchronized (this)
+            {
+                while (i<10)
+                {
+                    try {
+                        wait(300);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        txtConfirmedCases.setText(globalCases.get(0));
+                        txtRecoveredCases.setText(globalRecovered.get(0));
+                        txtDeathCases.setText((globalFatal.get(0)));
+                        txtGlobalNewCases.setText((globalNewCases.get(0)));
+                        txtGlobalNewDeaths.setText((globalNewDeaths.get(0)));
+                    } catch (IndexOutOfBoundsException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                    Toast toast = Toast.makeText(getApplicationContext(),"Updated the records.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+           progressBar.setVisibility(View.GONE);
+        }
+    }
+    class HomeAsync2 extends AsyncTask
+    {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Object[] objects)
+        {
+            GlobalDataService gs = new GlobalDataService();
+            try
+            {
+                globalCases = gs.getGlobalCases();
+                globalRecovered = gs.getGlobalRecovered();
+                globalFatal = gs.getGlobalFatal();
+                globalNewCases = gs.getGlobalNewCases();
+                globalNewDeaths = gs.getGlobalNewDeaths();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            int i =0;
+            synchronized (this)
+            {
+                while (i<10)
+                {
+                    try {
+                        wait(300);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        txtConfirmedCases.setText(globalCases.get(0));
+                        txtRecoveredCases.setText(globalRecovered.get(0));
+                        txtDeathCases.setText((globalFatal.get(0)));
+                        txtGlobalNewCases.setText((globalNewCases.get(0)));
+                        txtGlobalNewDeaths.setText((globalNewDeaths.get(0)));
+                    } catch (IndexOutOfBoundsException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
