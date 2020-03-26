@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class Home extends AppCompatActivity
 {
-    TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths;
+    TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths, txtMortality;
     ImageButton btnRefresh;
     private ProgressBar progressBar;
 
@@ -62,6 +62,7 @@ public class Home extends AppCompatActivity
         txtGlobalNewDeaths = findViewById(R.id.txtNewDeaths);
         btnRefresh = findViewById(R.id.btnRefresh);
         progressBar = findViewById(R.id.progressBar);
+        txtMortality = findViewById(R.id.txtMortality);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -130,6 +131,12 @@ public class Home extends AppCompatActivity
                 {
                     try
                     {
+                        double cases = Double.parseDouble(globalCases.get(0).replaceAll(",", ""));
+                        double deaths = Double.parseDouble(globalFatal.get(0).replaceAll(",", ""));
+                        double mortality = (deaths / cases) * 100;
+                        double mm = Math.round(mortality * 100.0) / 100.0;
+                        String m = String.valueOf(mm);
+                        txtMortality.setText(m + "%");
                         txtConfirmedCases.setText(globalCases.get(0));
                         txtRecoveredCases.setText(globalRecovered.get(0));
                         txtDeathCases.setText((globalFatal.get(0)));
@@ -199,6 +206,12 @@ public class Home extends AppCompatActivity
                 {
                     try
                     {
+                        double cases = Double.parseDouble(globalCases.get(0).replaceAll(",", ""));
+                        double deaths = Double.parseDouble(globalFatal.get(0).replaceAll(",", ""));
+                        double mortality = (deaths / cases) * 100;
+                        double mm = Math.round(mortality * 100.0) / 100.0;
+                        String m = String.valueOf(mm);
+                        txtMortality.setText(m + "%");
                         txtConfirmedCases.setText(globalCases.get(0));
                         txtRecoveredCases.setText(globalRecovered.get(0));
                         txtDeathCases.setText((globalFatal.get(0)));
