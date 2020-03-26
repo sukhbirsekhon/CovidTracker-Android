@@ -44,6 +44,10 @@ public class Home extends AppCompatActivity
                     Intent a = new Intent(Home.this, CasesByCountry.class);
                     startActivity(a);
                     break;
+                case R.id.nav_world:
+                    Intent b = new Intent(Home.this, MapsActivity.class);
+                    startActivity(b);
+                    break;
             }
             return false;
         }
@@ -81,7 +85,7 @@ public class Home extends AppCompatActivity
         txtConfirmedCases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
+                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
             }
         });
     }

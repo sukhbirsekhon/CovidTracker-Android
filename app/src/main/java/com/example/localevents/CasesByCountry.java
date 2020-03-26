@@ -54,6 +54,10 @@ public class CasesByCountry extends AppCompatActivity
                     break;
                 case R.id.nav_cases:
                     break;
+                case R.id.nav_world:
+                    Intent b = new Intent(CasesByCountry.this, MapsActivity.class);
+                    startActivity(b);
+                    break;
             }
             return false;
         }
