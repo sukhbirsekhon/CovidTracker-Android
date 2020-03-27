@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".News">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -29,13 +42,14 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/green_box"
         app:itemIconSize="20dp"
-        app:labelVisibilityMode="labeled"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation" />
 

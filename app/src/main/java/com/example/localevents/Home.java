@@ -117,9 +117,13 @@ public class Home extends AppCompatActivity {
                 globalFatal = gs.getGlobalFatal();
                 globalNewCases = gs.getGlobalNewCases();
                 globalNewDeaths = gs.getGlobalNewDeaths();
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
-            } catch (JSONException e) {
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
             }
 

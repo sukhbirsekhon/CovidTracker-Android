@@ -132,7 +132,11 @@ public class CasesByCountry extends AppCompatActivity
                     String searchedCountry = resultSet.get(0);
 
                     for (int i = 0; i < countryNames.size(); i++) {
-                        if (countryNames.get(i).matches(searchedCountry)) {
+                        if(searchedCountry == null)
+                        {
+                            Toast.makeText(getApplicationContext(), "Please enter a country", Toast.LENGTH_LONG).show();
+                        }
+                        else if (countryNames.get(i).matches(searchedCountry)) {
                             searchedCountryPosition = i;
                         }
                     }
@@ -275,7 +279,8 @@ public class CasesByCountry extends AppCompatActivity
             runOnUiThread(new Runnable()
             {
                 @Override
-                public void run() {
+                public void run()
+                {
                     try
                     {
                         for(int j = 0; j < countryNames.size(); j ++)

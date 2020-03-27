@@ -19,14 +19,16 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
     private List<ListCasesDataProvider> listItems;
     private Context context;
 
-    public ListCasesAdapter(List<ListCasesDataProvider> listItems, Context context) {
+    public ListCasesAdapter(List<ListCasesDataProvider> listItems, Context context)
+    {
         this.listItems = listItems;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
 
@@ -34,7 +36,8 @@ public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+    {
         ListCasesDataProvider listItem = listItems.get(position);
         holder.textViewHead.setText(listItem.getCountryName());
         holder.textViewDescription.setText(listItem.getCases());
