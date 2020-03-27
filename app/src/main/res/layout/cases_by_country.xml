@@ -102,6 +102,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/green_box"
         app:itemIconSize="20dp"
+        app:labelVisibilityMode="labeled"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

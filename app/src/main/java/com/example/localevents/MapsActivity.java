@@ -36,6 +36,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     break;
                 case R.id.nav_world:
                     break;
+                case R.id.nav_news:
+                    Intent c = new Intent(MapsActivity.this, News.class);
+                    startActivity(c);
+                    break;
             }
             return false;
         }

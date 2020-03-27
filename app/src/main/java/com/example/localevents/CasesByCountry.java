@@ -76,6 +76,10 @@ public class CasesByCountry extends AppCompatActivity
                     Intent b = new Intent(CasesByCountry.this, MapsActivity.class);
                     startActivity(b);
                     break;
+                case R.id.nav_news:
+                    Intent c = new Intent(CasesByCountry.this, News.class);
+                    startActivity(c);
+                    break;
             }
             return false;
         }

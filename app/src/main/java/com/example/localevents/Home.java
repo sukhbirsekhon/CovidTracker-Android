@@ -53,6 +53,10 @@ public class Home extends AppCompatActivity {
                     Intent b = new Intent(Home.this, MapsActivity.class);
                     startActivity(b);
                     break;
+                case R.id.nav_news:
+                    Intent c = new Intent(Home.this, News.class);
+                    startActivity(c);
+                    break;
             }
             return false;
         }
