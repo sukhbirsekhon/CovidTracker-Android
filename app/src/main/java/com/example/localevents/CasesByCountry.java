@@ -36,7 +36,7 @@ public class CasesByCountry extends AppCompatActivity
     private RecyclerView.Adapter adapter;
     private List<ListCasesDataProvider> listItems;
     private List<ListCasesDataProvider> listItems2;
-    private ProgressBar progressBar, progressBarl;
+    private ProgressBar progressBar;
     EditText txtSearch;
     ImageButton btnRefresh, btnSearch;
 
@@ -58,7 +58,7 @@ public class CasesByCountry extends AppCompatActivity
     List<String> dt = new ArrayList<>();
 
     EditText searchedText;
-    int searchedCountryPosition = 0;
+    int searchedCountryPosition;
     Context con = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -88,7 +88,6 @@ public class CasesByCountry extends AppCompatActivity
         setContentView(R.layout.cases_by_country);
 
         progressBar = findViewById(R.id.progressBar6);
-        progressBarl = findViewById(R.id.progressBar2);
         btnRefresh = findViewById(R.id.btnRefresh2);
         btnSearch = findViewById(R.id.btnSearch);
         searchedText = (EditText) findViewById(R.id.txtSearch);
@@ -124,7 +123,7 @@ public class CasesByCountry extends AppCompatActivity
 
                 try
                 {
-                    progressBarl.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     resultSet = filter(searchedText.getText().toString());
                     String searchedCountry = resultSet.get(0);
 
@@ -140,8 +139,9 @@ public class CasesByCountry extends AppCompatActivity
                     tr = ds.getTotalRecovered();
                     dt = ds.getNumberOfDeaths();
                 }
-                catch (IOException e)
+                catch (IOException | IndexOutOfBoundsException e)
                 {
+                    Toast.makeText(getApplicationContext(), "'" + searchedText.getText().toString() + "' is not a country.", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 } catch (JSONException e)
                 {
@@ -173,8 +173,9 @@ public class CasesByCountry extends AppCompatActivity
                                     tr.get(searchedCountryPosition),
                                     dt.get(searchedCountryPosition));
                             System.out.println(cn.get(searchedCountryPosition));
+                            listItems2.removeAll(listItems2);
                             listItems2.add(listCasesDataProvider);
-                            System.out.println(listItems.toString());
+                            System.out.println(listItems2.toString());
                         } catch(Exception e){
                             e.printStackTrace();
                         }
@@ -182,7 +183,7 @@ public class CasesByCountry extends AppCompatActivity
                         recyclerView.setAdapter(adapter);
                     }
                 });
-                progressBarl.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
 
         });
@@ -210,7 +211,7 @@ public class CasesByCountry extends AppCompatActivity
 
         for(String s : countryNames)
         {
-            if(s.toLowerCase().contains(searchText.toLowerCase()))
+            if(s.toLowerCase().matches(searchText.toLowerCase()))
             {
                 filteredList.add(s);
             }
