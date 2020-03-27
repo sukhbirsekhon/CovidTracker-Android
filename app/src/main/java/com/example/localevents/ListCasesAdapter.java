@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListCasesAdapter extends RecyclerView.Adapter<ListCasesAdapter.ViewHolder>

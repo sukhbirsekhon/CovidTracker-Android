@@ -1,6 +1,12 @@
 package com.example.localevents;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,8 +28,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Home extends AppCompatActivity
-{
+public class Home extends AppCompatActivity {
     TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths, txtMortality;
     ImageButton btnRefresh;
     private ProgressBar progressBar;
@@ -35,9 +41,8 @@ public class Home extends AppCompatActivity
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
-        {
-            switch (menuItem.getItemId()){
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()) {
                 case R.id.nav_home:
                     break;
                 case R.id.nav_cases:
@@ -54,8 +59,7 @@ public class Home extends AppCompatActivity
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -225,6 +229,7 @@ public class Home extends AppCompatActivity
                     {
                         e.printStackTrace();
                     }
+
                 }
             });
 

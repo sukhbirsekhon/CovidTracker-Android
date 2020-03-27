@@ -41,6 +41,5 @@ dependencies {
     implementation 'com.daimajia.swipelayout:library:1.2.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.1.0'
-    implementation "com.google.android.gms:play-services-maps:16.1.0"
 
 }
