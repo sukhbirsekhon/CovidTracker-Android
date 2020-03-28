@@ -172,4 +172,82 @@ public class NewDataService
         });
         return urls;
     }
+
+    public ArrayList<String> getPublishedDate()
+    {
+        Request request = new Request.Builder()
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .get()
+                .build();
+
+        final ArrayList<String> dates = new ArrayList<>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e)
+            {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+            {
+                try
+                {
+                    String o = response.body().string();
+
+                    JSONObject Jobject = new JSONObject(o);
+                    JSONArray Jarray = Jobject.getJSONArray("articles");
+
+                    for (int i = 0; i <Jarray.length(); i++)
+                    {
+                        String object = Jarray.getJSONObject(i).getString("publishedAt");
+                        dates.add(object);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return dates;
+    }
+
+    public ArrayList<String> getImageUrl()
+    {
+        Request request = new Request.Builder()
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .get()
+                .build();
+
+        final ArrayList<String> imageUrls = new ArrayList<>();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e)
+            {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+            {
+                try
+                {
+                    String o = response.body().string();
+
+                    JSONObject Jobject = new JSONObject(o);
+                    JSONArray Jarray = Jobject.getJSONArray("articles");
+
+                    for (int i = 0; i <Jarray.length(); i++)
+                    {
+                        String object = Jarray.getJSONObject(i).getString("urlToImage");
+                        imageUrls.add(object);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return imageUrls;
+    }
 }

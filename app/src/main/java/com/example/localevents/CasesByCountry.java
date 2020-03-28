@@ -2,6 +2,7 @@ package com.example.localevents;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -38,7 +39,7 @@ public class CasesByCountry extends AppCompatActivity
     private List<ListCasesDataProvider> listItems2;
     private ProgressBar progressBar;
     EditText txtSearch;
-    ImageButton btnRefresh, btnSearch;
+    ImageButton btnRefresh, btnSearch, btnClear;
 
     ArrayList<String> countryNames = new ArrayList<>();
     ArrayList<String> resultSet = new ArrayList<>();
@@ -95,7 +96,7 @@ public class CasesByCountry extends AppCompatActivity
         btnRefresh = findViewById(R.id.btnRefresh2);
         btnSearch = findViewById(R.id.btnSearch);
         searchedText = (EditText) findViewById(R.id.txtSearch);
-
+        btnClear = findViewById(R.id.btnClear);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,18 +114,30 @@ public class CasesByCountry extends AppCompatActivity
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchedText.setBackgroundResource(0);
                 progressBar.setVisibility(View.VISIBLE);
                 new CasesByCountryAsync2().execute();
             }
         });
-
+        searchedText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchedText.setBackgroundResource(R.drawable.rectangle_box);
+                searchedText.setTextColor(Color.rgb(255, 26, 26));
+            }
+        });
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchedText.getText().clear();
+            }
+        });
         btnSearch.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                searchedText.setImeOptions(EditorInfo.IME_ACTION_DONE);
                 closeKeyboard();
-
+                searchedText.setBackgroundResource(0);
                 try
                 {
                     progressBar.setVisibility(View.VISIBLE);
@@ -385,5 +398,6 @@ public class CasesByCountry extends AppCompatActivity
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+        searchedText.setBackgroundResource(0);
     }
 }

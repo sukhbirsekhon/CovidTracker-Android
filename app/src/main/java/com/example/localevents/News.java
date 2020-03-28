@@ -3,17 +3,24 @@ package com.example.localevents;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class News extends AppCompatActivity
@@ -26,6 +33,8 @@ public class News extends AppCompatActivity
     ArrayList<String> descriptions = new ArrayList<>();
     ArrayList<String> contents = new ArrayList<>();
     ArrayList<String> urls = new ArrayList<>();
+    ArrayList<String> publishedAt = new ArrayList<>();
+    ArrayList<String> urlToImage = new ArrayList<>();
 
     Context con = null;
 
@@ -82,6 +91,8 @@ public class News extends AppCompatActivity
                 descriptions = newsService.getDescription();
                 contents = newsService.getContent();
                 urls = newsService.getUrl();
+                publishedAt = newsService.getPublishedDate();
+                urlToImage = newsService.getImageUrl();
             }
             catch (Exception e)
             {
@@ -103,6 +114,7 @@ public class News extends AppCompatActivity
             }
             runOnUiThread(new Runnable()
             {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void run()
                 {
@@ -111,7 +123,7 @@ public class News extends AppCompatActivity
                         for(int j = 0; j < titles.size(); j++)
                         {
                             NewsDataProvider newsDataProvider = new NewsDataProvider(titles.get(j), descriptions.get(j),
-                                    contents.get(j), "More info: " + urls.get(j));
+                                    contents.get(j), "More info: " + urls.get(j), Instant.parse(publishedAt.get(j)).atOffset(ZoneOffset.MAX).format(DateTimeFormatter.ofPattern("hh:mm a")), urlToImage.get(j));
 
                             listItems.add(newsDataProvider);
                         }

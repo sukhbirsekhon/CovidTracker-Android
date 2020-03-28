@@ -8,15 +8,25 @@ public class NewsDataProvider
     private String url;
     private String publishedAt;
     private String content;
+    private String urlToImage;
 
     private boolean expanded;
 
-    public NewsDataProvider(String title, String description, String content, String url)
+    public NewsDataProvider(String title, String description, String content, String url, String publishedAt, String urlToImage)
     {
         this.title = title;
         this.description = description;
         this.content = content;
         this.url = url;
+        this.publishedAt = publishedAt;
+        this.urlToImage = urlToImage;
+    }
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
     }
 
     public String getSource() {

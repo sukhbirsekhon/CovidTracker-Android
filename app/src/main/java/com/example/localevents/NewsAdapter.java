@@ -6,12 +6,15 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>
     {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_items, parent, false);
-
+        context = parent.getContext();
         return new ViewHolder(v);
     }
 
@@ -43,8 +46,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>
         holder.txtViewTitle.setText(listItem.getTitle());
         holder.txtDescription.setText(listItem.getDescription());
         holder.txtContent.setText(listItem.getContent());
-        holder.txtContent.setText(Html.fromHtml(listItem.getUrl()));
-
+        holder.txtUrl.setText(Html.fromHtml(listItem.getUrl()));
+        holder.txtPublishedAt.setText(listItem.getPublishedAt());
+        Picasso.with(holder.image.getContext()).load(listItem.getUrlToImage()).into(holder.image);
         boolean isExpanded = listItems.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
     }
@@ -56,9 +60,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView txtViewTitle, txtDescription, txtContent, txtUrl;
+        public TextView txtViewTitle, txtDescription, txtContent, txtUrl, txtPublishedAt;
         public LinearLayout linearLayout;
         ConstraintLayout expandableLayout;
+        ImageView image;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -70,11 +75,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>
             txtUrl = (TextView) itemView.findViewById(R.id.txtUrl);
             txtUrl.setMovementMethod(LinkMovementMethod.getInstance());
             txtUrl.setClickable(true);
+            txtPublishedAt = (TextView) itemView.findViewById(R.id.txtPublishedAt);
+            image = (ImageView) itemView.findViewById(R.id.image);
 
             linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayoutNews);
             expandableLayout = itemView.findViewById(R.id.expandableLayoutNews);
 
             txtViewTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NewsDataProvider np = listItems.get(getAdapterPosition());
+                    np.setExpanded(!np.isExpanded());
+                    notifyDataSetChanged();getAdapterPosition();
+                }
+            });
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     NewsDataProvider np = listItems.get(getAdapterPosition());
