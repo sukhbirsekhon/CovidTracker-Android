@@ -84,7 +84,7 @@
         android:background="@null"
         android:ems="10"
         android:gravity="center"
-        android:hint="Enter country name"
+        android:hint="Search by country name"
         android:imeOptions="actionDone"
         android:inputType="textPersonName"
         android:textSize="14sp"
