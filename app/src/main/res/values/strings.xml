@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LocalEvents</string>
+    <string name="app_name">COVID-19 TRACKER</string>
     <string name="title_activity_login">"Sign In "</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
