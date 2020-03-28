@@ -14,4 +14,15 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="countries">
+        <item>US United States</item>
+        <item>IN India</item>
+        <item>CA Canada</item>
+        <item>IT Italy</item>
+        <item>FR France</item>
+        <item>AU Australia</item>
+        <item>GB United Kingdom</item>
+        <item>DE Germany</item>
+        <item>CH Switzerland</item>
+    </string-array>
 </resources>

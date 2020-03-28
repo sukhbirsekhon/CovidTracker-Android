@@ -1,5 +1,9 @@
 package com.example.localevents;
 
+import android.content.Context;
+import android.view.Gravity;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +21,10 @@ public class NewDataService
 {
     OkHttpClient client = new OkHttpClient();
 
-    public ArrayList<String> getTitle()
+    public ArrayList<String> getTitle(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -48,7 +52,11 @@ public class NewDataService
                         String object = Jarray.getJSONObject(i).getString("title");
                         titles.add(object);
                     }
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
@@ -56,10 +64,10 @@ public class NewDataService
         return titles;
     }
 
-    public ArrayList<String> getDescription()
+    public ArrayList<String> getDescription(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -88,6 +96,9 @@ public class NewDataService
                         descriptions.add(object);
                     }
                 } catch (JSONException e) {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
@@ -95,10 +106,10 @@ public class NewDataService
         return descriptions;
     }
 
-    public ArrayList<String> getContent()
+    public ArrayList<String> getContent(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -127,6 +138,9 @@ public class NewDataService
                         contents.add(object);
                     }
                 } catch (JSONException e) {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
@@ -134,10 +148,10 @@ public class NewDataService
         return contents;
     }
 
-    public ArrayList<String> getUrl()
+    public ArrayList<String> getUrl(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -166,6 +180,9 @@ public class NewDataService
                         urls.add(object);
                     }
                 } catch (JSONException e) {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
@@ -173,10 +190,10 @@ public class NewDataService
         return urls;
     }
 
-    public ArrayList<String> getPublishedDate()
+    public ArrayList<String> getPublishedDate(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -205,6 +222,9 @@ public class NewDataService
                         dates.add(object);
                     }
                 } catch (JSONException e) {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
@@ -212,10 +232,10 @@ public class NewDataService
         return dates;
     }
 
-    public ArrayList<String> getImageUrl()
+    public ArrayList<String> getImageUrl(String country, final Context c)
     {
         Request request = new Request.Builder()
-                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country=us&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
+                .url("http://newsapi.org/v2/top-headlines?q=coronavirus&country="+ country +"&sortBy=popularity&apiKey=6c8417610d7e44a59e12d3758d004968")
                 .get()
                 .build();
 
@@ -244,6 +264,9 @@ public class NewDataService
                         imageUrls.add(object);
                     }
                 } catch (JSONException e) {
+                    Toast toast = Toast.makeText(c,"New is unavailable. Come back later.",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 200);
+                    toast.show();
                     e.printStackTrace();
                 }
             }
