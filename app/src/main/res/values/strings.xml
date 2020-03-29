@@ -25,4 +25,5 @@
         <item>DE Germany</item>
         <item>CH Switzerland</item>
     </string-array>
+    <string name="messageWithLink">Follow World Health Organization (WHO) Covid-19 thread \n<a href="https://www.google.com/">WHO COVID-19 thread</a></string>
 </resources>

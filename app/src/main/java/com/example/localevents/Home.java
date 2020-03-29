@@ -29,6 +29,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity {
     TextView txtConfirmedCases, txtRecoveredCases, txtDeathCases, txtGlobalNewCases, txtGlobalNewDeaths, txtMortality;
@@ -40,7 +41,7 @@ public class Home extends AppCompatActivity {
     ArrayList<String> globalFatal = new ArrayList<>();
     ArrayList<String> globalNewCases = new ArrayList<>();
     ArrayList<String> globalNewDeaths = new ArrayList<>();
-    ArrayList<String> casesPerMillion = new ArrayList<>();
+    List<String> confirmedCases = new ArrayList<>();
     ArrayList<String> countryNames = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -89,7 +90,7 @@ public class Home extends AppCompatActivity {
 
         DataService ds = new DataService();
         try {
-            casesPerMillion = ds.getTotalCasesPerMillionPopulation();
+            confirmedCases = ds.getNumberOfCases();
             countryNames = ds.getCountryName();
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,16 +116,30 @@ public class Home extends AppCompatActivity {
 
         for(int j = 0; j < 5; j++)
         {
-            int c = Integer.parseInt(casesPerMillion.get(j).replaceAll(",", ""));
-            entries.add(new BarEntry(c, j));
+            try
+            {
+                int c = Integer.parseInt(confirmedCases.get(j).replaceAll(",", ""));
+                entries.add(new BarEntry(c, j));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
 
-        BarDataSet bardataset = new BarDataSet(entries, "Total cases per 1 million population (Top 5 countries)");
+        BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases (Top 5 countries)");
 
         ArrayList<String> labels = new ArrayList<String>();
         for(int k = 0; k < 5; k++)
         {
-            labels.add(countryNames.get(k));
+            try
+            {
+                labels.add(countryNames.get(k));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
 
         BarData data = new BarData(labels, bardataset);
@@ -158,7 +173,7 @@ public class Home extends AppCompatActivity {
         barChart.setDoubleTapToZoomEnabled(true);
         barChart.setPinchZoom(true);
 
-        bardataset.setBarSpacePercent(50f);
+        bardataset.setBarSpacePercent(40f);
         bardataset.setColor(R.color.colorAccent);
 
         progressBar.setVisibility(View.VISIBLE);

@@ -1,8 +1,12 @@
 package com.example.localevents;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+
 import android.view.MenuItem;
+import android.view.View;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,5 +50,12 @@ public class Help extends AppCompatActivity
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+    }
+
+    public void selfOnlineTeat(View view)
+    {
+        Intent onlineTestIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/testing.html"));
+        startActivity(onlineTestIntent);
+
     }
 }
