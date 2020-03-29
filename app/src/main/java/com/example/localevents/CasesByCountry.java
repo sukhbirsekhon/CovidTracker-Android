@@ -81,6 +81,10 @@ public class CasesByCountry extends AppCompatActivity
                     Intent c = new Intent(CasesByCountry.this, News.class);
                     startActivity(c);
                     break;
+                case R.id.nav_help:
+                    Intent d = new Intent(CasesByCountry.this, Help.class);
+                    startActivity(d);
+                    break;
             }
             return false;
         }
@@ -130,6 +134,59 @@ public class CasesByCountry extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 searchedText.getText().clear();
+                DataService ds = new DataService();
+                try
+                {
+                    countryNames = ds.getCountryName();
+                    cases = ds.getNumberOfCases();
+                    deaths = ds.getNumberOfDeaths();
+                    totalRecovered = ds.getTotalRecovered();
+                    activeCases = ds.getActiveCases();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                int i =0;
+
+                synchronized (this)
+                {
+                    while (i<10)
+                    {
+                        try {
+                            wait(80);
+                            i++;
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            for(int j = 0; j < countryNames.size(); j ++)
+                            {
+                                ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
+                                        cases.get(j), activeCases.get(j),
+                                        totalRecovered.get(j),
+                                        deaths.get(j));
+
+                                listItems.add(listCasesDataProvider);
+                            }
+                        } catch(Exception e){
+                            e.printStackTrace();
+                        }
+
+                        adapter = new ListCasesAdapter(listItems, con);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener()
@@ -175,7 +232,7 @@ public class CasesByCountry extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(200);
+                            wait(80);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -222,7 +279,7 @@ public class CasesByCountry extends AppCompatActivity
             while (i<10)
             {
                 try {
-                    wait(200);
+                    wait(80);
                     i++;
                 }catch (InterruptedException e){
                     e.printStackTrace();
@@ -282,7 +339,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(200);
+                        wait(80);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -349,7 +406,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(200);
+                        wait(80);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();

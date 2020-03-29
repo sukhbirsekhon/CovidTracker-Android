@@ -280,9 +280,9 @@ public class DataService
         return activeCases;
     }
 
-    public List<String> getTotalCasesPerMillionPopulation() throws IOException, JSONException
+    public ArrayList<String> getTotalCasesPerMillionPopulation() throws IOException, JSONException
     {
-        final List<String> totalCasePerMillion = new ArrayList<>();
+        final ArrayList<String> totalCasePerMillion = new ArrayList<>();
 
         client.newCall(request).enqueue(new Callback()
         {

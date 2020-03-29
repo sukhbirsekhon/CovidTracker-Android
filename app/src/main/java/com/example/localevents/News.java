@@ -66,6 +66,10 @@ public class News extends AppCompatActivity
                     break;
                 case R.id.nav_news:
                     break;
+                case R.id.nav_help:
+                    Intent d = new Intent(News.this, Help.class);
+                    startActivity(d);
+                    break;
             }
             return false;
         }

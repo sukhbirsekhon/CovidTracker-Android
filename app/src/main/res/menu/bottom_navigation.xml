@@ -24,6 +24,13 @@
         android:title="News" />
 
     <item
+        android:id="@+id/nav_help"
+        android:icon="@drawable/ic_help_black_24dp"
+        app:itemBackground="@android:color/tertiary_text_dark"
+        app:itemTextColor="@android:color/tertiary_text_dark"
+        android:title="Help" />
+
+    <item
         android:id="@+id/nav_world"
         android:icon="@drawable/ic_world_black_24dp"
         app:itemBackground="@android:color/tertiary_text_dark"

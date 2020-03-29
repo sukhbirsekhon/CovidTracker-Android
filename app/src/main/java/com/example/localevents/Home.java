@@ -1,12 +1,9 @@
 package com.example.localevents;
 
-import android.Manifest;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,8 +16,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -38,6 +40,8 @@ public class Home extends AppCompatActivity {
     ArrayList<String> globalFatal = new ArrayList<>();
     ArrayList<String> globalNewCases = new ArrayList<>();
     ArrayList<String> globalNewDeaths = new ArrayList<>();
+    ArrayList<String> casesPerMillion = new ArrayList<>();
+    ArrayList<String> countryNames = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -56,6 +60,10 @@ public class Home extends AppCompatActivity {
                 case R.id.nav_news:
                     Intent c = new Intent(Home.this, News.class);
                     startActivity(c);
+                    break;
+                case R.id.nav_help:
+                    Intent d = new Intent(Home.this, Help.class);
+                    startActivity(d);
                     break;
             }
             return false;
@@ -79,6 +87,80 @@ public class Home extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        DataService ds = new DataService();
+        try {
+            casesPerMillion = ds.getTotalCasesPerMillionPopulation();
+            countryNames = ds.getCountryName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        int i =0;
+        synchronized (this)
+        {
+            while (i<10)
+            {
+                try {
+                    wait(100);
+                    i++;
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        BarChart barChart = (BarChart) findViewById(R.id.bargraph);
+
+        for(int j = 0; j < 5; j++)
+        {
+            int c = Integer.parseInt(casesPerMillion.get(j).replaceAll(",", ""));
+            entries.add(new BarEntry(c, j));
+        }
+
+        BarDataSet bardataset = new BarDataSet(entries, "Total cases per 1 million population (Top 5 countries)");
+
+        ArrayList<String> labels = new ArrayList<String>();
+        for(int k = 0; k < 5; k++)
+        {
+            labels.add(countryNames.get(k));
+        }
+
+        BarData data = new BarData(labels, bardataset);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextSize(10f);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+
+        YAxis right = barChart.getAxisRight();
+        right.setDrawLabels(false); // no axis labels
+        right.setDrawAxisLine(false); // no axis line
+        right.setDrawGridLines(false); // no grid lines
+        right.setDrawZeroLine(true);
+
+        YAxis left = barChart.getAxisLeft();
+        left.setDrawLabels(false); // no axis labels
+        left.setDrawAxisLine(false); // no axis line
+        left.setDrawGridLines(false); // no grid lines
+        left.setDrawZeroLine(true);
+
+        barChart.setData(data);
+        barChart.setDrawGridBackground(false);
+        barChart.setDescription("");  // set the description
+        barChart.animateXY(5000,5000);
+        barChart.setScaleEnabled(true);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setDrawGridBackground(false);
+        barChart.setDoubleTapToZoomEnabled(true);
+        barChart.setPinchZoom(true);
+
+        bardataset.setBarSpacePercent(50f);
+        bardataset.setColor(R.color.colorAccent);
+
         progressBar.setVisibility(View.VISIBLE);
         new HomeAsync2().execute();
 
@@ -97,6 +179,7 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
 
     class HomeAsync extends AsyncTask
     {
@@ -133,7 +216,7 @@ public class Home extends AppCompatActivity {
                 while (i<10)
                 {
                     try {
-                        wait(300);
+                        wait(100);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -208,7 +291,7 @@ public class Home extends AppCompatActivity {
                 while (i<10)
                 {
                     try {
-                        wait(300);
+                        wait(100);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
