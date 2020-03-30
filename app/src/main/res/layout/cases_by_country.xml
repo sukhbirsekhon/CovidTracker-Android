@@ -88,6 +88,8 @@
         android:hint="Search by country name"
         android:imeOptions="actionDone"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#B71C1C"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recycler"
