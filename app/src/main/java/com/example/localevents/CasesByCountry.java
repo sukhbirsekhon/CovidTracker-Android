@@ -57,6 +57,10 @@ public class CasesByCountry extends AppCompatActivity
     List<String> ac = new ArrayList<>();
     List<String> tr = new ArrayList<>();
     List<String> dt = new ArrayList<>();
+    List<String> nc = new ArrayList<>();
+    List<String> nd = new ArrayList<>();
+    List<String> sc = new ArrayList<>();
+    List<String> cpm = new ArrayList<>();
 
     EditText searchedText;
     int searchedCountryPosition;
@@ -115,6 +119,10 @@ public class CasesByCountry extends AppCompatActivity
         progressBar.setVisibility(View.VISIBLE);
         new CasesByCountryAsync().execute();
 
+        Toast toast = Toast.makeText(getApplicationContext(), "Click a country to see more stats", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM, 0, 200);
+        toast.show();
+
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +150,10 @@ public class CasesByCountry extends AppCompatActivity
                     deaths = ds.getNumberOfDeaths();
                     totalRecovered = ds.getTotalRecovered();
                     activeCases = ds.getActiveCases();
+                    newCases = ds.getNewCases();
+                    newDeaths = ds.getNewDeaths();
+                    seriousCritical = ds.getSeriousCritical();
+                    totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -156,7 +168,7 @@ public class CasesByCountry extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(80);
+                            wait(100);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -175,7 +187,7 @@ public class CasesByCountry extends AppCompatActivity
                                 ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
                                         cases.get(j), activeCases.get(j),
                                         totalRecovered.get(j),
-                                        deaths.get(j));
+                                        deaths.get(j), newCases.get(j), newDeaths.get(j), seriousCritical.get(j), totalCasesPerMillionPopulation.get(j));
 
                                 listItems.add(listCasesDataProvider);
                             }
@@ -216,6 +228,10 @@ public class CasesByCountry extends AppCompatActivity
                     ac = ds.getActiveCases();
                     tr = ds.getTotalRecovered();
                     dt = ds.getNumberOfDeaths();
+                    nc = ds.getNewCases();
+                    nd = ds.getNewDeaths();
+                    sc = ds.getSeriousCritical();
+                    cpm = ds.getTotalCasesPerMillionPopulation();
                 }
                 catch (IOException | IndexOutOfBoundsException e)
                 {
@@ -232,7 +248,7 @@ public class CasesByCountry extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(80);
+                            wait(100);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -249,7 +265,7 @@ public class CasesByCountry extends AppCompatActivity
                             ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (searchedCountryPosition+1) + " "+ cn.get(searchedCountryPosition),
                                     cs.get(searchedCountryPosition), ac.get(searchedCountryPosition),
                                     tr.get(searchedCountryPosition),
-                                    dt.get(searchedCountryPosition));
+                                    dt.get(searchedCountryPosition), nc.get(searchedCountryPosition), nd.get(searchedCountryPosition), sc.get(searchedCountryPosition),cpm.get(searchedCountryPosition));
                             System.out.println(cn.get(searchedCountryPosition));
                             listItems2.removeAll(listItems2);
                             listItems2.add(listCasesDataProvider);
@@ -279,7 +295,7 @@ public class CasesByCountry extends AppCompatActivity
             while (i<10)
             {
                 try {
-                    wait(80);
+                    wait(100);
                     i++;
                 }catch (InterruptedException e){
                     e.printStackTrace();
@@ -325,6 +341,10 @@ public class CasesByCountry extends AppCompatActivity
                 deaths = ds.getNumberOfDeaths();
                 totalRecovered = ds.getTotalRecovered();
                 activeCases = ds.getActiveCases();
+                newCases = ds.getNewCases();
+                newDeaths = ds.getNewDeaths();
+                seriousCritical = ds.getSeriousCritical();
+                totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -339,7 +359,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(80);
+                        wait(100);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -358,7 +378,7 @@ public class CasesByCountry extends AppCompatActivity
                             ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
                                     cases.get(j), activeCases.get(j),
                                     totalRecovered.get(j),
-                                    deaths.get(j));
+                                    deaths.get(j), newCases.get(j), newDeaths.get(j), seriousCritical.get(j), totalCasesPerMillionPopulation.get(j));
 
                             listItems.add(listCasesDataProvider);
                         }
@@ -392,6 +412,10 @@ public class CasesByCountry extends AppCompatActivity
                 deaths = ds.getNumberOfDeaths();
                 totalRecovered = ds.getTotalRecovered();
                 activeCases = ds.getActiveCases();
+                newCases = ds.getNewCases();
+                newDeaths = ds.getNewDeaths();
+                seriousCritical = ds.getSeriousCritical();
+                totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -406,7 +430,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(80);
+                        wait(100);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -420,10 +444,10 @@ public class CasesByCountry extends AppCompatActivity
                     {
                         for(int j = 0; j < countryNames.size(); j ++)
                         {
-                            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " " + countryNames.get(j),
+                            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
                                     cases.get(j), activeCases.get(j),
                                     totalRecovered.get(j),
-                                    deaths.get(j));
+                                    deaths.get(j), newCases.get(j), newDeaths.get(j), seriousCritical.get(j), totalCasesPerMillionPopulation.get(j));
 
                             listItems.add(listCasesDataProvider);
                         }

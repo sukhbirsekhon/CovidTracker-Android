@@ -114,7 +114,7 @@ public class Home extends AppCompatActivity {
 
         BarChart barChart = (BarChart) findViewById(R.id.bargraph);
 
-        for(int j = 0; j < 5; j++)
+        for(int j = 0; j < 10; j++)
         {
             try
             {
@@ -127,10 +127,10 @@ public class Home extends AppCompatActivity {
             }
         }
 
-        BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases (Top 5 countries)");
+        BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases (Top 10 countries)");
 
         ArrayList<String> labels = new ArrayList<String>();
-        for(int k = 0; k < 5; k++)
+        for(int k = 0; k < 10; k++)
         {
             try
             {
@@ -147,9 +147,11 @@ public class Home extends AppCompatActivity {
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.BLACK);
-        xAxis.setTextSize(10f);
-        xAxis.setDrawAxisLine(true);
+        xAxis.setTextSize(8f);
+        xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setLabelsToSkip(0);
+        xAxis.setLabelRotationAngle(-45);
 
         YAxis right = barChart.getAxisRight();
         right.setDrawLabels(false); // no axis labels
@@ -174,7 +176,7 @@ public class Home extends AppCompatActivity {
         barChart.setPinchZoom(true);
 
         bardataset.setBarSpacePercent(40f);
-        bardataset.setColor(R.color.colorAccent);
+        bardataset.setColor(Color.parseColor("#B71C1C"));
 
         progressBar.setVisibility(View.VISIBLE);
         new HomeAsync2().execute();

@@ -11,17 +11,23 @@ public class ListCasesDataProvider
     private String newCases;
     private String newDeaths;
     private String seriousCritical;
+    private String casesPerMillion;
 
     private boolean expanded;
 
     public ListCasesDataProvider(String countryName, String cases, String activeCases,
-            String recoveredCase, String deaths)
+                                 String recoveredCase, String deaths, String newCases, String newDeaths, String seriousCritical,
+                                 String casesPerMillion)
     {
         this.countryName = countryName;
         this.cases = cases;
         this.activeCases = activeCases;
         this.recoveredCases = recoveredCase;
         this.deaths = deaths;
+        this.newCases = newCases;
+        this.newDeaths = newDeaths;
+        this.seriousCritical = seriousCritical;
+        this.casesPerMillion = casesPerMillion;
 
         this.expanded = false;
     }
@@ -72,6 +78,38 @@ public class ListCasesDataProvider
 
     public void setCases(String cases) {
         this.cases = cases;
+    }
+
+    public String getNewCases() {
+        return newCases;
+    }
+
+    public void setNewCases(String newCases) {
+        this.newCases = newCases;
+    }
+
+    public String getNewDeaths() {
+        return newDeaths;
+    }
+
+    public void setNewDeaths(String newDeaths) {
+        this.newDeaths = newDeaths;
+    }
+
+    public String getSeriousCritical() {
+        return seriousCritical;
+    }
+
+    public void setSeriousCritical(String seriousCritical) {
+        this.seriousCritical = seriousCritical;
+    }
+
+    public String getCasesPerMillion() {
+        return casesPerMillion;
+    }
+
+    public void setCasesPerMillion(String casesPerMillion) {
+        this.casesPerMillion = casesPerMillion;
     }
 
 }
