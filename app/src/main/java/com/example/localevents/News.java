@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,10 +61,6 @@ public class News extends AppCompatActivity
                     Intent a = new Intent(News.this, CasesByCountry.class);
                     startActivity(a);
                     break;
-                case R.id.nav_world:
-                    Intent b = new Intent(News.this, MapsActivity.class);
-                    startActivity(b);
-                    break;
                 case R.id.nav_news:
                     break;
                 case R.id.nav_help:
@@ -85,6 +82,7 @@ public class News extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         con = this;
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -126,7 +124,7 @@ public class News extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(50);
+                            wait(100);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -193,7 +191,7 @@ public class News extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(50);
+                        wait(100);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();

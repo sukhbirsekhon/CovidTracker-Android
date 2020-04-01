@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,10 +78,6 @@ public class CasesByCountry extends AppCompatActivity
                     break;
                 case R.id.nav_cases:
                     break;
-                case R.id.nav_world:
-                    Intent b = new Intent(CasesByCountry.this, MapsActivity.class);
-                    startActivity(b);
-                    break;
                 case R.id.nav_news:
                     Intent c = new Intent(CasesByCountry.this, News.class);
                     startActivity(c);
@@ -110,7 +107,7 @@ public class CasesByCountry extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
         listItems2 = new ArrayList<>();
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -168,7 +165,7 @@ public class CasesByCountry extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(100);
+                            wait(150);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -248,7 +245,7 @@ public class CasesByCountry extends AppCompatActivity
                     while (i<10)
                     {
                         try {
-                            wait(100);
+                            wait(150);
                             i++;
                         }catch (InterruptedException e){
                             e.printStackTrace();
@@ -295,7 +292,7 @@ public class CasesByCountry extends AppCompatActivity
             while (i<10)
             {
                 try {
-                    wait(100);
+                    wait(150);
                     i++;
                 }catch (InterruptedException e){
                     e.printStackTrace();
@@ -359,7 +356,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(100);
+                        wait(150);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -430,7 +427,7 @@ public class CasesByCountry extends AppCompatActivity
                 while (i<10)
                 {
                     try {
-                        wait(100);
+                        wait(150);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();

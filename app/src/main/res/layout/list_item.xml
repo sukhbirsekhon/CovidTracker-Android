@@ -46,7 +46,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="20"
                 android:clickable="false"
-                android:text="Description"
+                android:text="Confirmed"
                 android:textColor="#B71C1C"
                 android:textSize="20sp"
                 android:textStyle="bold"

@@ -23,6 +23,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
@@ -43,6 +44,7 @@ public class Home extends AppCompatActivity {
     ArrayList<String> globalNewDeaths = new ArrayList<>();
     List<String> confirmedCases = new ArrayList<>();
     ArrayList<String> countryNames = new ArrayList<>();
+    List<String> activeCases = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -53,10 +55,6 @@ public class Home extends AppCompatActivity {
                 case R.id.nav_cases:
                     Intent a = new Intent(Home.this, CasesByCountry.class);
                     startActivity(a);
-                    break;
-                case R.id.nav_world:
-                    Intent b = new Intent(Home.this, MapsActivity.class);
-                    startActivity(b);
                     break;
                 case R.id.nav_news:
                     Intent c = new Intent(Home.this, News.class);
@@ -88,95 +86,123 @@ public class Home extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        DataService ds = new DataService();
-        try {
-            confirmedCases = ds.getNumberOfCases();
-            countryNames = ds.getCountryName();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        int i =0;
-        synchronized (this)
+        try
         {
-            while (i<10)
+            DataService ds = new DataService();
+            try {
+                confirmedCases = ds.getNumberOfCases();
+                countryNames = ds.getCountryName();
+                activeCases = ds.getActiveCases();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            int i =0;
+            synchronized (this)
             {
-                try {
-                    wait(100);
-                    i++;
-                }catch (InterruptedException e){
+                while (i<10)
+                {
+                    try {
+                        wait(150);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            ArrayList<BarEntry> entries = new ArrayList<>();
+            ArrayList<BarEntry> entries2 = new ArrayList<>();
+
+            BarChart barChart = (BarChart) findViewById(R.id.bargraph);
+
+            for(int j = 0; j < 5; j++)
+            {
+                try
+                {
+                    int c = Integer.parseInt(confirmedCases.get(j).replaceAll(",", ""));
+                    entries.add(new BarEntry(c, j));
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }
+
+            for(int j = 0; j < 5; j++)
+            {
+                try
+                {
+                    int c = Integer.parseInt(activeCases.get(j).replaceAll(",", ""));
+                    entries2.add(new BarEntry(c, j));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases ");
+            BarDataSet bardataset2 = new BarDataSet(entries2, "Active cases ");
+
+            List<IBarDataSet> set = new ArrayList<>();
+            set.add(bardataset);
+            set.add(bardataset2);
+
+            ArrayList<String> labels = new ArrayList<String>();
+            for(int k = 0; k < 5; k++)
+            {
+                try
+                {
+                    labels.add(countryNames.get(k));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            BarData data = new BarData(labels, set);
+
+            XAxis xAxis = barChart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTextColor(Color.BLACK);
+            xAxis.setTextSize(8f);
+            xAxis.setDrawAxisLine(false);
+            xAxis.setDrawGridLines(false);
+            xAxis.setLabelsToSkip(0);
+            xAxis.setLabelRotationAngle(-45);
+
+            YAxis right = barChart.getAxisRight();
+            right.setDrawLabels(false); // no axis labels
+            right.setDrawAxisLine(false); // no axis line
+            right.setDrawGridLines(false); // no grid lines
+            right.setDrawZeroLine(true);
+
+            YAxis left = barChart.getAxisLeft();
+            left.setDrawLabels(false); // no axis labels
+            left.setDrawAxisLine(false); // no axis line
+            left.setDrawGridLines(false); // no grid lines
+            left.setDrawZeroLine(true);
+
+            barChart.setData(data);
+            barChart.setDrawGridBackground(false);
+            barChart.setDescription("");  // set the description
+            barChart.animateXY(5000,5000);
+            barChart.setScaleEnabled(true);
+            barChart.setDrawValueAboveBar(true);
+            barChart.setDrawGridBackground(false);
+            barChart.setDoubleTapToZoomEnabled(true);
+            barChart.setPinchZoom(true);
+
+            bardataset.setColor(Color.parseColor("#B71C1C"));
+            bardataset2.setColor(Color.parseColor("#000000"));
+
         }
-        ArrayList<BarEntry> entries = new ArrayList<>();
-
-        BarChart barChart = (BarChart) findViewById(R.id.bargraph);
-
-        for(int j = 0; j < 10; j++)
+        catch (Exception e)
         {
-            try
-            {
-                int c = Integer.parseInt(confirmedCases.get(j).replaceAll(",", ""));
-                entries.add(new BarEntry(c, j));
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
-
-        BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases (Top 10 countries)");
-
-        ArrayList<String> labels = new ArrayList<String>();
-        for(int k = 0; k < 10; k++)
-        {
-            try
-            {
-                labels.add(countryNames.get(k));
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        BarData data = new BarData(labels, bardataset);
-
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setTextSize(8f);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setDrawGridLines(false);
-        xAxis.setLabelsToSkip(0);
-        xAxis.setLabelRotationAngle(-45);
-
-        YAxis right = barChart.getAxisRight();
-        right.setDrawLabels(false); // no axis labels
-        right.setDrawAxisLine(false); // no axis line
-        right.setDrawGridLines(false); // no grid lines
-        right.setDrawZeroLine(true);
-
-        YAxis left = barChart.getAxisLeft();
-        left.setDrawLabels(false); // no axis labels
-        left.setDrawAxisLine(false); // no axis line
-        left.setDrawGridLines(false); // no grid lines
-        left.setDrawZeroLine(true);
-
-        barChart.setData(data);
-        barChart.setDrawGridBackground(false);
-        barChart.setDescription("");  // set the description
-        barChart.animateXY(5000,5000);
-        barChart.setScaleEnabled(true);
-        barChart.setDrawValueAboveBar(true);
-        barChart.setDrawGridBackground(false);
-        barChart.setDoubleTapToZoomEnabled(true);
-        barChart.setPinchZoom(true);
-
-        bardataset.setBarSpacePercent(40f);
-        bardataset.setColor(Color.parseColor("#B71C1C"));
 
         progressBar.setVisibility(View.VISIBLE);
         new HomeAsync2().execute();
@@ -192,7 +218,7 @@ public class Home extends AppCompatActivity {
         txtConfirmedCases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                startActivity(new Intent(getApplicationContext(), CasesByCountry.class));
             }
         });
     }
@@ -233,7 +259,7 @@ public class Home extends AppCompatActivity {
                 while (i<10)
                 {
                     try {
-                        wait(100);
+                        wait(150);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();
@@ -308,7 +334,7 @@ public class Home extends AppCompatActivity {
                 while (i<10)
                 {
                     try {
-                        wait(100);
+                        wait(150);
                         i++;
                     }catch (InterruptedException e){
                         e.printStackTrace();

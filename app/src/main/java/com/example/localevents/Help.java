@@ -28,10 +28,6 @@ public class Help extends AppCompatActivity
                     Intent b = new Intent(Help.this, CasesByCountry.class);
                     startActivity(b);
                     break;
-                case R.id.nav_world:
-                    Intent d = new Intent(Help.this, MapsActivity.class);
-                    startActivity(d);
-                    break;
                 case R.id.nav_news:
                     Intent c = new Intent(Help.this, News.class);
                     startActivity(c);
