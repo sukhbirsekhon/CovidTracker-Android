@@ -15,7 +15,10 @@
         android:layout_height="29dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         app:layout_constraintBottom_toTopOf="@+id/recycler"
+        app:layout_constraintEnd_toStartOf="@+id/txtSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -123,8 +126,9 @@
         android:layout_marginBottom="1dp"
         android:background="@null"
         app:layout_constraintBottom_toTopOf="@+id/recycler"
-        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintStart_toEndOf="@+id/progressBar6"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.100000024"
         app:srcCompat="@drawable/ic_clear_black_24dp" />
 
 
