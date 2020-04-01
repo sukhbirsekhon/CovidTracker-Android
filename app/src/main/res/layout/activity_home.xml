@@ -191,7 +191,7 @@
         android:layout_marginTop="4dp"
         android:text="0"
         android:textColor="#B71C1C"
-        android:textSize="45sp"
+        android:textSize="47sp"
         android:textStyle="bold"
         app:fontFamily="sans-serif-condensed"
         app:layout_constraintEnd_toEndOf="parent"
