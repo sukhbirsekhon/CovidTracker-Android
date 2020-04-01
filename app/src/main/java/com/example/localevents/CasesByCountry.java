@@ -131,7 +131,6 @@ public class CasesByCountry extends AppCompatActivity
         searchedText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchedText.setBackgroundResource(R.drawable.rectangle_box);
                 searchedText.setTextColor(Color.rgb(255, 26, 26));
             }
         });
@@ -139,63 +138,7 @@ public class CasesByCountry extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 searchedText.getText().clear();
-                DataService ds = new DataService();
-                try
-                {
-                    countryNames = ds.getCountryName();
-                    cases = ds.getNumberOfCases();
-                    deaths = ds.getNumberOfDeaths();
-                    totalRecovered = ds.getTotalRecovered();
-                    activeCases = ds.getActiveCases();
-                    newCases = ds.getNewCases();
-                    newDeaths = ds.getNewDeaths();
-                    seriousCritical = ds.getSeriousCritical();
-                    totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                int i =0;
-
-                synchronized (this)
-                {
-                    while (i<10)
-                    {
-                        try {
-                            wait(150);
-                            i++;
-                        }catch (InterruptedException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            for(int j = 0; j < countryNames.size(); j ++)
-                            {
-                                ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
-                                        cases.get(j), activeCases.get(j),
-                                        totalRecovered.get(j),
-                                        deaths.get(j), newCases.get(j), newDeaths.get(j), seriousCritical.get(j), totalCasesPerMillionPopulation.get(j));
-
-                                listItems.add(listCasesDataProvider);
-                            }
-                        } catch(Exception e){
-                            e.printStackTrace();
-                        }
-
-                        adapter = new ListCasesAdapter(listItems, con);
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
+                new clearAsync().execute();
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener()
@@ -309,6 +252,72 @@ public class CasesByCountry extends AppCompatActivity
         }
 
         return filteredList;
+    }
+
+    class clearAsync extends AsyncTask
+    {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            DataService ds = new DataService();
+            try
+            {
+                countryNames = ds.getCountryName();
+                cases = ds.getNumberOfCases();
+                deaths = ds.getNumberOfDeaths();
+                totalRecovered = ds.getTotalRecovered();
+                activeCases = ds.getActiveCases();
+                newCases = ds.getNewCases();
+                newDeaths = ds.getNewDeaths();
+                seriousCritical = ds.getSeriousCritical();
+                totalCasesPerMillionPopulation = ds.getTotalCasesPerMillionPopulation();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            int i =0;
+
+            synchronized (this)
+            {
+                while (i<10)
+                {
+                    try {
+                        wait(150);
+                        i++;
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        for(int j = 0; j < countryNames.size(); j ++)
+                        {
+                            ListCasesDataProvider listCasesDataProvider = new ListCasesDataProvider("#" + (j+1) + " "+ countryNames.get(j),
+                                    cases.get(j), activeCases.get(j),
+                                    totalRecovered.get(j),
+                                    deaths.get(j), newCases.get(j), newDeaths.get(j), seriousCritical.get(j), totalCasesPerMillionPopulation.get(j));
+
+                            listItems.add(listCasesDataProvider);
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+                    adapter = new ListCasesAdapter(listItems, con);
+                    recyclerView.setAdapter(adapter);
+                }
+            });
+            return null;
+        }
     }
 
     class searchAsync extends AsyncTask {
