@@ -6,11 +6,13 @@ import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Help extends AppCompatActivity
@@ -44,6 +46,8 @@ public class Help extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
+        ImageView imageView = findViewById(R.id.imageView);
+        Glide.with(this).load(R.raw.download).into(imageView);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
     }

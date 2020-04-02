@@ -4,6 +4,7 @@
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Help">
 
     <TextView
@@ -39,126 +40,132 @@
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation" />
 
-    <Button
-        android:id="@+id/btnThread10"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/box"
-        android:onClick="cdc"
-        android:text="CDC "
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+<!--    <Button-->
+<!--        android:id="@+id/btnThread10"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:background="@drawable/box"-->
+<!--        android:onClick="cdc"-->
+<!--        android:text="CDC"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:typeface="sans"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView21" />-->
 
-    <Button
-        android:id="@+id/btnThread"
-        style="@style/Widget.AppCompat.Button.Borderless"
+<!--    <Button-->
+<!--        android:id="@+id/btnThread"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/box"-->
+<!--        android:onClick="thread"-->
+<!--        android:text="World Health Organization Covid-19 thread"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:typeface="sans"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnThread10" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnThread5"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/box"-->
+<!--        android:onClick="symp"-->
+<!--        android:text="What are symptoms?"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:typeface="sans"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnThread" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnThread4"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/box"-->
+<!--        android:onClick="protext"-->
+<!--        android:text="How to protect yourself?"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textStyle="bold"-->
+<!--        android:typeface="sans"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnThread5" />-->
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="179dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="thread"
-        android:text="World Health Organization Covid-19 thread"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread10" />
-
-    <Button
-        android:id="@+id/btnThread5"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="symp"
-        android:text="What are symptoms?"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread" />
+        app:layout_constraintTop_toBottomOf="@+id/textView21">
 
-    <Button
-        android:id="@+id/btnThread2"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="ifYouAreSick"
-        android:text="What to do if you are sick?"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread5" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnThread3"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="home"
-        android:text="How to disinfect your home?"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread2" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-    <Button
-        android:id="@+id/btnThread4"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="protext"
-        android:text="How to protect yourself?"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread3" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/cdclogoi" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box"
-        android:onClick="selfOnlineTeat"
-        android:text="Coronavirus Self-checker"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnThread4" />
+            </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COVID-19"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="220dp"
+                tools:layout_editor_absoluteY="283dp" />
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get the latest information from the CDC about COVID-19"
+                tools:layout_editor_absoluteX="220dp"
+                tools:layout_editor_absoluteY="283dp" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/button3"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -175,5 +182,91 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="DO THE FIVE"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/candal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:srcCompat="@drawable/download" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="STAY home as much as you can"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KEEP a safe distance"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WASH hands often"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COVER your cough"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SICK? Call ahead"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
