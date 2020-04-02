@@ -111,8 +111,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="179dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21">
@@ -137,35 +140,56 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="2dp">
-
-            <TextView
-                android:id="@+id/textView28"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COVID-19"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="220dp"
-                tools:layout_editor_absoluteY="283dp" />
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get the latest information from the CDC about COVID-19"
-                tools:layout_editor_absoluteX="220dp"
-                tools:layout_editor_absoluteY="283dp" />
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:padding="2dp">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COVID-19"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="220dp"
+                    tools:layout_editor_absoluteY="283dp" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Get the latest information from the CDC about COVID-19"
+                    tools:layout_editor_absoluteX="220dp"
+                    tools:layout_editor_absoluteY="283dp" />
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    tools:layout_editor_absoluteX="220dp"
+                    tools:layout_editor_absoluteY="283dp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="center|center_horizontal|left|center_vertical"
+                    android:text="LEARN MORE"
+                    android:textColor="#388cd4"
+                    tools:layout_editor_absoluteX="136dp"
+                    tools:layout_editor_absoluteY="302dp" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/button3"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -183,8 +207,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
@@ -194,7 +216,7 @@
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:fontFamily="@font/candal"
+        app:fontFamily="@font/bitter_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -267,6 +289,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
