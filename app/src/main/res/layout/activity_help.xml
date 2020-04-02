@@ -173,11 +173,12 @@
                     tools:layout_editor_absoluteY="283dp" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btnLearnMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:gravity="center|center_horizontal|left|center_vertical"
+                    android:onClick="cdc"
                     android:text="LEARN MORE"
                     android:textColor="#388cd4"
                     tools:layout_editor_absoluteX="136dp"
@@ -224,7 +225,7 @@
         android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
@@ -234,7 +235,7 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="10dp"
         android:text="STAY home as much as you can"
         android:textColor="#000000"
         android:textStyle="bold"
