@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -48,6 +50,11 @@ public class Help extends AppCompatActivity
 
         ImageView imageView = findViewById(R.id.imageView);
         Glide.with(this).load(R.raw.download).into(imageView);
+
+        TextView heading = findViewById(R.id.heading);
+        String text = "<font color='#000000'> #STAYHOME </font><font color='#B71C1C'>#STAYSAFE</font>";
+        heading.setText(Html.fromHtml(text));
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
