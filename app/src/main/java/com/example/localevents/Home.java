@@ -45,6 +45,7 @@ public class Home extends AppCompatActivity {
     List<String> confirmedCases = new ArrayList<>();
     ArrayList<String> countryNames = new ArrayList<>();
     List<String> activeCases = new ArrayList<>();
+    List<String> fatal = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -93,6 +94,7 @@ public class Home extends AppCompatActivity {
                 confirmedCases = ds.getNumberOfCases();
                 countryNames = ds.getCountryName();
                 activeCases = ds.getActiveCases();
+                fatal = ds.getNumberOfDeaths();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -113,6 +115,7 @@ public class Home extends AppCompatActivity {
             }
             ArrayList<BarEntry> entries = new ArrayList<>();
             ArrayList<BarEntry> entries2 = new ArrayList<>();
+            ArrayList<BarEntry> entries3 = new ArrayList<>();
 
             BarChart barChart = (BarChart) findViewById(R.id.bargraph);
 
@@ -142,12 +145,27 @@ public class Home extends AppCompatActivity {
                 }
             }
 
+            for(int j = 0; j < 5; j++)
+            {
+                try
+                {
+                    int c = Integer.parseInt(fatal.get(j).replaceAll(",", ""));
+                    entries3.add(new BarEntry(c, j));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
             BarDataSet bardataset = new BarDataSet(entries, "Confirmed cases ");
             BarDataSet bardataset2 = new BarDataSet(entries2, "Active cases ");
+            BarDataSet bardataset3 = new BarDataSet(entries3, "Fatal cases ");
 
             List<IBarDataSet> set = new ArrayList<>();
             set.add(bardataset);
             set.add(bardataset2);
+            set.add(bardataset3);
 
             ArrayList<String> labels = new ArrayList<String>();
             for(int k = 0; k < 5; k++)
@@ -197,6 +215,7 @@ public class Home extends AppCompatActivity {
 
             bardataset.setColor(Color.parseColor("#B71C1C"));
             bardataset2.setColor(Color.parseColor("#000000"));
+            bardataset3.setColor(Color.parseColor("#717171"));
 
         }
         catch (Exception e)
