@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.localevents">
+    package="com.covid19.trakcker">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -29,16 +29,16 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
 
-        <activity android:name=".Home">
+        <activity android:name="covid19.trakcker.localevents.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CasesByCountry" />
-        <activity android:name=".News" />
-        <activity android:name=".Help" />
+        <activity android:name="covid19.trakcker.localevents.CasesByCountry" />
+        <activity android:name="covid19.trakcker.localevents.News" />
+        <activity android:name="covid19.trakcker.localevents.Help" />
         <activity android:name=".MainActivity"></activity>
 
         <meta-data

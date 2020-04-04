@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".CasesByCountry">
+    tools:context="covid19.trakcker.localevents.CasesByCountry">
 
     <ProgressBar
         android:id="@+id/progressBar6"

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:121969023841:android:3e0a6803eb30fef7350320",
         "android_client_info": {
-          "package_name": "com.example.localevents"
+          "package_name": "com.covid19.trakcker"
         }
       },
       "oauth_client": [
