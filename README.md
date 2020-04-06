@@ -16,16 +16,16 @@ News page is powered by NewsAPI.org
 
 <div class="row">
   <div class="column">
-    <img src="0.jpg" alt="Snow" width="400px" height="600px">
+    <img src="0.jpg" alt="Snow" width="600px" height="900px">
   </div>
   <div class="column">
-    <img src="1.jpg" alt="Forest" width="400px" height="600px">
+    <img src="1.jpg" alt="Forest" width="600px" height="900px">
   </div>
   <div class="column">
-    <img src="2.jpg" width="400px" height="600px">
+    <img src="2.jpg" width="600px" height="900px">
   </div>
   <div class="column">
-    <img src="4.jpg" width="400px" height="600px">
+    <img src="4.jpg" width="600px" height="900px">
   </div>
 </div>
 
